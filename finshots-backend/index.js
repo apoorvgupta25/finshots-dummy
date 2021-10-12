@@ -22,8 +22,12 @@ app.use(cors());
 
 // Routes
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const categoryRoutes = require('./routes/category');
 
 app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+app.use("/api", categoryRoutes);
 
 
 const port = 3001;
