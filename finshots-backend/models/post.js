@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 
-const dailySchema = new mongoose.Schema(
+const postSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -28,8 +28,13 @@ const dailySchema = new mongoose.Schema(
       data: Buffer,
       contentType: String,
     },
+    author: {
+      type: ObjectId,
+      ref: "User",
+      required: true,
+    }
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("daily", dailySchema);
+module.exports = mongoose.model("posts", postSchema);

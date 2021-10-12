@@ -3,7 +3,7 @@ const router = express.Router()
 
 const {getCategoryById, createCategory, getCategory, getAllCategory, updateCategory, removeCategory} = require('../controllers/category')
 const {getUserById} = require('../controllers/user')
-const {isAdmin, isAuthenticated, isSignedIn} = require('../controllers/auth')
+const { isAuthenticated, isSignedIn} = require('../controllers/auth')
 
 router.param('categoryId', getCategoryById);
 router.param('userId', getUserById);
@@ -11,7 +11,7 @@ router.param('userId', getUserById);
 router.post('/category/create/:userId', isSignedIn, isAuthenticated, createCategory);
 
 router.get('/category/:categoryId', getCategory);
-router.get('/categories', getAllCategory);
+router.get('/all/categories', getAllCategory);
 
 router.put('/category/:userId/:categoryId/', isSignedIn, isAuthenticated, updateCategory);
 
