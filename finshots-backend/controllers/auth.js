@@ -54,8 +54,8 @@ exports.signin = (req,res) => {
 
         res.cookie("token", token, {expire: new Date() + 9999});
 
-        const { _id, name, email, role} = user;
-        return res.json({token, user: { _id, name, email, role}});
+        const { _id, name, email} = user;
+        return res.json({token, user: { _id, name, email}});
     });
 };
 
