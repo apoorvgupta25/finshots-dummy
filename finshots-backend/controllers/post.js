@@ -123,12 +123,12 @@ exports.updatePost = (req, res) => {
 exports.getAllPosts = (req, res) => {
     let limit = req.query.limit ? parseInt(req.query.limit) : 1000000;
 
-    let sortBy = req.query.sortBy ? parseInt(req.query.sortBy) : '_id';
+    let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
 
     Post.find()
         .select("-photo")
         .populate('category')
-        .sort([[sortBy, 'asc']])
+        .sort([[sortBy, 'descending']])
         .limit(limit)
         .exec((err, posts) => {
         if(err){
