@@ -23,8 +23,9 @@ const DailyCard = ({ post }) => {
         <div className="daily-card">
             <img className="daily-image" src={imageURL} alt=""/>
             <div className="daily-content">
+                <a href={`/daily/${post._id}`}>
                 <header className="daily-title">{title}</header>
-                <p>{description}</p>
+                <p>{description}</p></a>
             </div>
             <footer className="daily-footer">
                 <p> {date.toString().slice(3,16)} </p>
