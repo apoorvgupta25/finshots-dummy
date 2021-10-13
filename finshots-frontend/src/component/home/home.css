@@ -41,7 +41,7 @@
     overflow: hidden;
     flex: 1 1 250px;
     margin: 0 20px 40px;
-    min-height: 300px;
+    min-height: 200px;
     background: #fff 50%;
     background-size: cover;
     border-radius: 5px;
@@ -51,7 +51,7 @@
 }
 
 .home-image {
-    height: 200px;
+    height: 100px;
     background: #c5d2d9 no-repeat 50%;
     object-fit: cover;
     -o-object-fit: cover;
