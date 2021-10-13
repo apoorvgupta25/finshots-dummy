@@ -10,22 +10,26 @@ import './daily.css';
 
 const DailyCard = ({ post }) => {
 
-    const title = post ? post.title : "Default T-shirt";
-    const description = post ? post.description : "Default T-shirt Description";
-    const time = post ? post.time : "DEFAULT";
-    const raw_date = post ? post.createdAt : "DEFAULT";
-
-    const date = new Date(raw_date);
-
-    const imageURL = post ? `${API}/daily/photo/${post._id}` : `https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg`
+    var title = "title";
+    var description = "description";
+    var date = "date";
+    const time = "DEFAULT";
+    var imageURL = "https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg";
+    if(post._id){
+        title = post.title;
+        description = post.description;
+        date = new Date(post.createdAt);
+        imageURL = `${API}/daily/photo/${post._id}`;
+    }
 
     return (
         <div className="daily-card">
             <img className="daily-image" src={imageURL} alt=""/>
             <div className="daily-content">
                 <a href={`/daily/${post._id}`}>
-                <header className="daily-title">{title}</header>
-                <p>{description}</p></a>
+                    <header className="daily-title">{title}</header>
+                </a>
+                <p>{description}</p>
             </div>
             <footer className="daily-footer">
                 <p> {date.toString().slice(3,16)} </p>

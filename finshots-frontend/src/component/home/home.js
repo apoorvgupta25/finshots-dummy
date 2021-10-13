@@ -11,18 +11,23 @@ import {getLast3Posts} from './homeAPICalls';
 
 const HomeCard= ({ post }) => {
 
-    const title = post ? post.title : "Default T-shirt";
-    const description = post ? post.description : "Default T-shirt Description";
-    const raw_date = post ? post.createdAt : "DEFAULT";
-    const date = new Date(raw_date);
-    const imageURL = post ? `${API}/daily/photo/${post._id}` : `https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg`
+    var title = "title";
+    var description = "description";
+    var date = "date";
+    var imageURL = "https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg";
+    if(post._id){
+        title = post.title;
+        description = post.description;
+        date = new Date(post.createdAt);
+        imageURL = `${API}/daily/photo/${post._id}`;
+    }
 
     return (
         <div className="home-card">
             <img className="home-image" src={imageURL} alt=""/>
             <div className="home-content">
                 <p> {date.toString().slice(3,25)} </p>
-                <header className="home-title">{title}</header>
+                <a href={`/daily/${post._id}`}><header className="home-title">{title}</header></a>
                 <p>{description}</p>
             </div>
         </div>
