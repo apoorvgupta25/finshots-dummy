@@ -4,7 +4,7 @@ const _ = require('lodash')
 const fs = require('fs');
 
 exports.getPostById = (req, res, next, id) => {
-    Post.findById(id).populate("category").exec((err, prod) => {
+    Post.findById(id).populate("category").populate("author", "_id name").exec((err, prod) => {
         if(err){
             return res.status(400).json({
                 error: "Post not found"

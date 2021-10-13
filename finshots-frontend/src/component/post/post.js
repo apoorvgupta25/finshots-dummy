@@ -32,6 +32,7 @@ const Post = ({ match }) => {
     var category = "category";
     var date = "date";
     var imageURL = "https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg";
+    var author = "author";
 
     // fetch gives two responses one is null
     if(post._id){
@@ -41,6 +42,7 @@ const Post = ({ match }) => {
         category = post.category.name;
         date = new Date(post.createdAt);
         imageURL = `${API}/daily/photo/${post._id}`;
+        author = post.author.name;
     }
 
     console.log(post.author);
@@ -64,6 +66,7 @@ const Post = ({ match }) => {
                     </div>
                     {content}
                 </div>
+                <div className="author"> - By {author}</div>
             </div>
         </div>
 
