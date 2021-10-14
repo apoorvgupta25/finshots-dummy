@@ -28,7 +28,7 @@ const Signin = () => {
         }
 
         if(isAuth()){
-            return <Redirect to='/' />
+            return <Redirect to={`/dashboard/${user._id}`}/>
         }
     }
 
