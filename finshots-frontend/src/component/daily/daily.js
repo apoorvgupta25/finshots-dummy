@@ -8,7 +8,7 @@ import NavbarTop from '../Navbar';
 import {getDailyPosts} from './dailyAPICalls';
 import './daily.css';
 
-const DailyCard = ({ post }) => {
+export const DailyCard = ({ post }) => {
 
     var title = "title";
     var description = "description";

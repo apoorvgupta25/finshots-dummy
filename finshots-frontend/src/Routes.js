@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Home from './component/home/home';
 import Daily from './component/daily/daily';
 import Post from './component/post/post';
+import Category from './component/category/category.js';
 
 import Signup from './auth/signup';
 import Signin from './auth/signin';
@@ -28,6 +29,7 @@ export default function Routes(){
                 <Route path="/" exact component={Home}/>
                 <Route path="/daily" exact component={Daily}/>
                 <Route path="/daily/:postName" exact component={Post}/>
+                <Route path="/category/:categoryId" exact component={Category}/>
 
                 <Route path="/signin" exact component={Signin}/>
 

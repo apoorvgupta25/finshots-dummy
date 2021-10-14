@@ -1,4 +1,5 @@
 const Post = require('../models/post')
+const Category = require('../models/category')
 const formidable = require('formidable')
 const _ = require('lodash')
 const fs = require('fs');
@@ -142,13 +143,33 @@ exports.getAllPosts = (req, res) => {
     });
 };
 
+// distinct with populate
 exports.getAllUniqueCategories = (req, res) => {
-    Post.distinct("category", {}, (err, category) => {
-        if(err){
-            return res.status(400).json({
-                error: "No Category Found"
-            });
-        }
-        res.json(category);
+    Post.distinct("category", {}, (err, category_id) => {
+        Category.find({'_id': category_id}, (err, category) => {
+            if(err){
+                return res.status(400).json({
+                    error: "No Category Found"
+                });
+            }
+            res.json(category);
+        });
     });
 }
+
+exports.getAllCategoryPosts = (req, res) => {
+
+    Post.find({ "category": req.category._id} )
+        .select("-photo")
+        .populate('category')
+        .populate("author", "_id name")
+        .sort([['createdAt', 'descending']])
+        .exec((err, posts) => {
+        if(err){
+            return res.status(400).json({
+                error: "No Post was Found"
+            });
+        }
+        res.json(posts);
+    });
+};
