@@ -29,7 +29,7 @@ export default function Routes(){
                 <Route path="/" exact component={Home}/>
                 <Route path="/daily" exact component={Daily}/>
                 <Route path="/daily/:postName" exact component={Post}/>
-                <Route path="/category/:categoryId" exact component={Category}/>
+                <Route path="/tag/:categoryId" exact component={Category}/>
 
                 <Route path="/signin" exact component={Signin}/>
 

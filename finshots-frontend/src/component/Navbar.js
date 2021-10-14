@@ -59,7 +59,7 @@ const NavbarTop = () => {
                                                 style={{ textDecoration:'none', color: 'black'}}
                                                 key={index}
                                                 to={{
-                                                    pathname:`/category/${category.name}`,
+                                                    pathname:`/tag/${category.name}`,
                                                     state: {
                                                       categoryId: category._id,
                                                     },
