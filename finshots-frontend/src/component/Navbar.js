@@ -42,7 +42,7 @@ const NavbarTop = () => {
         <div className="nav-container">
             <Navbar light expand="md sticky-top nav-color">
                 <NavbarBrand className="ml-sm-5 nav-link">
-                    NewsShots
+                    <Link to="/" style={{ textDecoration:'none', color: 'black'}}>NewsShots</Link>
                 </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
@@ -56,6 +56,7 @@ const NavbarTop = () => {
                                     return(
                                             <Link
                                                 className="text-bold"
+                                                style={{ textDecoration:'none', color: 'black'}}
                                                 key={index}
                                                 to={{
                                                     pathname:`/category/${category.name}`,
@@ -77,7 +78,7 @@ const NavbarTop = () => {
 
                     <Nav className="ml-auto" navbar>
                         <NavItem className="nav-link">
-                            Daily
+                            <Link to="/daily" style={{ textDecoration:'none', color: 'black'}}>Daily</Link>
                         </NavItem>
 
                         <NavItem className="nav-link">
