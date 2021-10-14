@@ -22,12 +22,7 @@ const Signin = () => {
     }
 
     const performRedirect = () => {
-        if(didRedirect){
-            return <Redirect to={`/dashboard/${user._id}`}/>
-
-        }
-
-        if(isAuth()){
+        if(didRedirect || isAuth()){
             return <Redirect to={`/dashboard/${user._id}`}/>
         }
     }
@@ -80,8 +75,12 @@ const Signin = () => {
 
     }
 
-    const signinForm = () => {
-        return (
+    return (
+        <div>
+            <h1 className="text-center mt-5 mb-5">Sign In</h1>
+
+            {loadingMessage()}
+            {errorMessage()}
             <div className="row">
                 <div className="col-md-6 offset-sm-3 text-left">
                     <form>
@@ -97,15 +96,6 @@ const Signin = () => {
                     </form>
                 </div>
             </div>
-        )
-    }
-
-
-    return (
-        <div>
-            {loadingMessage()}
-            {errorMessage()}
-            {signinForm()}
             {performRedirect()}
         </div>
     );
