@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-// import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import {API} from '../../backend';
 
@@ -15,20 +15,25 @@ const DailyCard = ({ post }) => {
     var date = "date";
     const time = "DEFAULT";
     var imageURL = "https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg";
+    var name = "title";
     if(post._id){
         title = post.title;
         description = post.description;
         date = new Date(post.createdAt);
         imageURL = `${API}/daily/photo/${post._id}`;
+        name = title.replace(/\s+/g, '-').toLowerCase();
     }
 
     return (
         <div className="daily-card">
             <img className="daily-image" src={imageURL} alt=""/>
             <div className="daily-content">
-                <a href={`/daily/${post._id}`}>
+                <Link to={{
+                    pathname:`/daily/${name}`,
+                    state: { postId: post._id },
+                }}>
                     <header className="daily-title">{title}</header>
-                </a>
+                </Link>
                 <p>{description}</p>
             </div>
             <footer className="daily-footer">

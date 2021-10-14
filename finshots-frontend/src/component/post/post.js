@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {Link, withRouter, useLocation} from 'react-router-dom';
 
 import {API} from '../../backend';
 
@@ -9,7 +9,10 @@ import NavbarTop from '../Navbar';
 
 const Post = ({ match }) => {
 
+    const { state } = useLocation();
+
     const [post, setPost] = useState([]);
+
     const loadPost = postId => {
         getPost(postId)
         .then(data => {
@@ -22,7 +25,7 @@ const Post = ({ match }) => {
     };
 
     useEffect(() => {
-        loadPost(match.params.postId)
+        loadPost(state.postId);
     },[])
 
 
@@ -44,8 +47,6 @@ const Post = ({ match }) => {
         imageURL = `${API}/daily/photo/${post._id}`;
         author = post.author.name;
     }
-
-    console.log(post.author);
 
     return (
 
@@ -72,7 +73,5 @@ const Post = ({ match }) => {
 
     )
 }
-
-
 
 export default Post;

@@ -15,11 +15,13 @@ const HomeCard= ({ post }) => {
     var description = "description";
     var date = "date";
     var imageURL = "https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg";
+    var name = "title";
     if(post._id){
         title = post.title;
         description = post.description;
         date = new Date(post.createdAt);
         imageURL = `${API}/daily/photo/${post._id}`;
+        name = title.replace(/\s+/g, '-').toLowerCase();
     }
 
     return (
@@ -27,7 +29,12 @@ const HomeCard= ({ post }) => {
             <img className="home-image" src={imageURL} alt=""/>
             <div className="home-content">
                 <p> {date.toString().slice(3,25)} </p>
-                <a href={`/daily/${post._id}`}><header className="home-title">{title}</header></a>
+                <Link to={{
+                    pathname:`/daily/${name}`,
+                    state: { postId: post._id },
+                }}>
+                    <header className="home-title">{title}</header>
+                </Link>
                 <p>{description}</p>
             </div>
         </div>

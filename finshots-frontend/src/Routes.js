@@ -27,7 +27,7 @@ export default function Routes(){
             <Switch>
                 <Route path="/" exact component={Home}/>
                 <Route path="/daily" exact component={Daily}/>
-                <Route path="/daily/:postId" exact component={Post}/>
+                <Route path="/daily/:postName" exact component={Post}/>
 
                 <Route path="/signin" exact component={Signin}/>
 
