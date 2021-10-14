@@ -26,14 +26,15 @@ exports.createPost = (req, res) => {
             });
         }
 
-        const {title, description, content, category, author} = fields;
-        if(!title || !description || !content || !category || !author){
+        const {title, description, content, category} = fields;
+        if(!title || !description || !content || !category){
             return res.status(400).json({
                 error: "Please Include all fields"
             });
         }
 
         let post = new Post(fields);
+        post.author = req.profile._id;
 
         if(file.photo){
             if(file.photo.size > 3000000){
@@ -42,7 +43,7 @@ exports.createPost = (req, res) => {
                 });
             }
 
-            post.photo.data = fs.readFileSync(file.photo.path);  //using file path
+            post.photo.data = fs.readFileSync(file.photo.path);
             post.photo.contentType = file.photo.type;
         }
 
@@ -128,6 +129,7 @@ exports.getAllPosts = (req, res) => {
     Post.find()
         .select("-photo")
         .populate('category')
+        .populate("author", "_id name")
         .sort([[sortBy, 'descending']])
         .limit(limit)
         .exec((err, posts) => {
