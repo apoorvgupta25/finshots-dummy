@@ -5,6 +5,12 @@ import {createPost} from './helper/postAPICalls';
 import {getAllCategories} from './helper/categoryAPICalls';
 import {isAuth} from '../auth/authAPICalls'
 
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { convertFromRaw } from 'draft-js';
+
+const contentPage = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
+
 const CreatePost = () => {
 
     const [values, setValues] = useState({
@@ -19,6 +25,8 @@ const CreatePost = () => {
         error: '',
         formData: ''
     });
+
+    const [contentState, setContentState] = useState(convertFromRaw(contentPage));
 
     const {title, description, content, categories, category, author, createdPost, error, formData } = values;
     const {user, token} = isAuth();
@@ -64,6 +72,7 @@ const CreatePost = () => {
     }
 
     const onSubmit = event => {
+        console.log(formData);
         event.preventDefault();
         setValues({...values, error:"" ,loading: true});
         createPost(user._id, token, formData)
@@ -86,10 +95,38 @@ const CreatePost = () => {
     }
 
     const goBack = () => (
-        <div className="mt-5">
+        <div className="">
             <Link className="btn btn-sm btn-success mb-3" to={`/dashboard/${user._id}`}>Admin Home</Link>
         </div>
     )
+
+    const onContentStateChange = contentState => {
+        setContentState({contentState});
+        setValues({...values, content: JSON.stringify(contentState)});
+        formData.append('content', JSON.stringify(contentState));
+        // console.log(JSON.stringify(contentState));
+    }
+
+    const editor = () => {
+        return (
+            <Editor
+                name="con"
+                wrapperStyle={{ backgroundColor:'white', color: 'black', height: '15em', paddingBottom: '3rem', fontFamily: 'Georgia,sans-serif'}}
+                editorStyle = {{padding: '0 0.5rem'}}
+                toolbar={{
+                    options: ['inline', 'blockType', 'list', 'link'],
+                    blockType: {
+                        inDropdown: false,
+                        options: ['Normal','Blockquote'],
+                    },
+                 }}
+                 onContentStateChange={(contentState) => onContentStateChange(contentState)}
+             />
+         )
+    }
+
+    // */
+    // <textarea className="form-control" type="textarea" placeholder="Content" onChange={handleChange("content")} value={content} />
 
     return (
         <div className="container bg-info p-4">
@@ -115,7 +152,7 @@ const CreatePost = () => {
                             <input className="form-control" type="text" name="photo" placeholder="Description" onChange={handleChange("description")} value={description} />
                         </div>
                         <div className="form-group">
-                            <textarea className="form-control" type="textarea" placeholder="Content" onChange={handleChange("content")} value={content} />
+                            {editor()}
                         </div>
                         <div className="form-group">
                             <select className="form-control" placeholder="Category" onChange={handleChange("category")}>
