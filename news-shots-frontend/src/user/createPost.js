@@ -7,9 +7,9 @@ import {isAuth} from '../auth/authAPICalls'
 
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { convertFromRaw } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
 
-const contentPage = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
+// const contentPage = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
 
 const CreatePost = () => {
 
@@ -26,7 +26,7 @@ const CreatePost = () => {
         formData: ''
     });
 
-    const [contentState, setContentState] = useState(convertFromRaw(contentPage));
+    const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
     const {title, description, content, categories, category, author, createdPost, error, formData } = values;
     const {user, token} = isAuth();
@@ -72,7 +72,6 @@ const CreatePost = () => {
     }
 
     const onSubmit = event => {
-        console.log(formData);
         event.preventDefault();
         setValues({...values, error:"" ,loading: true});
         createPost(user._id, token, formData)
@@ -100,11 +99,9 @@ const CreatePost = () => {
         </div>
     )
 
-    const onContentStateChange = contentState => {
-        setContentState({contentState});
-        setValues({...values, content: JSON.stringify(contentState)});
-        formData.append('content', JSON.stringify(contentState));
-        // console.log(JSON.stringify(contentState));
+    const onEditorStateChange = editorState => {
+        // setEditorState(convertToRaw(editorState.getCurrentContent()))
+        formData.append('content', JSON.stringify(convertToRaw(editorState.getCurrentContent())));
     }
 
     const editor = () => {
@@ -119,7 +116,7 @@ const CreatePost = () => {
                         options: ['Normal','Blockquote'],
                     },
                  }}
-                 onContentStateChange={(contentState) => onContentStateChange(contentState)}
+                 onEditorStateChange={(editorState) => onEditorStateChange(editorState)}
              />
          )
     }
