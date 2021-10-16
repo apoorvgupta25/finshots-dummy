@@ -110,7 +110,6 @@ const CreatePost = () => {
     const editor = () => {
         return (
             <Editor
-                name="con"
                 wrapperStyle={{ backgroundColor:'white', color: 'black', height: '15em', paddingBottom: '3rem', fontFamily: 'Georgia,sans-serif'}}
                 editorStyle = {{padding: '0 0.5rem'}}
                 toolbar={{
@@ -125,7 +124,6 @@ const CreatePost = () => {
          )
     }
 
-    // */
     // <textarea className="form-control" type="textarea" placeholder="Content" onChange={handleChange("content")} value={content} />
 
     return (

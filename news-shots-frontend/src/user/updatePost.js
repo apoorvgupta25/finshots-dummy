@@ -5,8 +5,13 @@ import {updatePost, getPost} from './helper/postAPICalls';
 import {isAuth} from '../auth/authAPICalls'
 import {getAllCategories} from './helper/categoryAPICalls';
 
-const UpdatePost = ({match}) => {
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 
+const editorStateAsJSONString = {"entityMap":{},"blocks":[{"key":"637gr","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
+
+const UpdatePost = ({match}) => {
 
     const [values, setValues] = useState({
         title: '',
@@ -20,6 +25,9 @@ const UpdatePost = ({match}) => {
         error: '',
         formData: ''
     });
+    const [contentState, setContentState] = useState(convertFromRaw(editorStateAsJSONString));
+    const [editorState, setEditorState]  = useState(EditorState.createWithContent(contentState));
+    const [con, setCon] = useState('');
 
     const {title, description, content, categories, category, author, createdPost, error, formData } = values;
     const {user, token} = isAuth();
@@ -29,6 +37,8 @@ const UpdatePost = ({match}) => {
         formData.set(name, value);
 
         setValues({...values, [name]: value});
+        setContentState(convertFromRaw(JSON.parse(con)))
+        setEditorState(EditorState.createWithContent(contentState))
     }
 
     const successMessage = () => {
@@ -54,6 +64,9 @@ const UpdatePost = ({match}) => {
                 setValues({...values, error: data.error});
             }
             else{
+                setCon(data.content)
+                setContentState(convertFromRaw(JSON.parse(data.content)))
+                setEditorState(EditorState.createWithContent(contentState))
                 setValues({...values,
                     title: data.title,
                     description: data.description,
@@ -115,6 +128,32 @@ const UpdatePost = ({match}) => {
 
 
 
+    const onEditorStateChange = (editorState) => {
+        setEditorState(editorState);
+        setContentState(editorState.getCurrentContent());
+        setValues({...values, content: JSON.stringify(convertToRaw(editorState.getCurrentContent()))});
+        formData.append('content', JSON.stringify(convertToRaw(editorState.getCurrentContent())));
+    }
+
+    const editor = () => {
+        return (
+            <Editor
+                editorState = {editorState}
+                onEditorStateChange={(editorState) => onEditorStateChange(editorState)}
+                wrapperStyle={{ backgroundColor:'white', color: 'black', height: '15em', paddingBottom: '3rem', fontFamily: 'Georgia,sans-serif'}}
+                editorStyle = {{padding: '0 0.5rem'}}
+                toolbar={{
+                    options: ['inline', 'blockType', 'list', 'link'],
+                    blockType: {
+                        inDropdown: false,
+                        options: ['Normal','Blockquote'],
+                    },
+                 }}
+
+             />
+         )
+    }
+
     return (
         <div className="container bg-info p-4">
             <h1 className="text-white text-center">Update Post</h1>
@@ -139,7 +178,7 @@ const UpdatePost = ({match}) => {
                             <input className="form-control" type="text" name="photo" placeholder="Description" onChange={handleChange("description")} value={description} />
                         </div>
                         <div className="form-group">
-                            <textarea className="form-control" type="textarea" placeholder="Content" onChange={handleChange("content")} value={content} />
+                            {editor()}
                         </div>
                         <div className="form-group">
                             <select className="form-control" placeholder="Category" onChange={handleChange("category")}>
