@@ -29,9 +29,6 @@ const Category = () => {
     useEffect(() => {
         loadAllPosts(state.categoryId)
     },[reload])
-    // .filter(post => post.category._id === post._id)
-
-    console.log(posts);
 
     return (
         <div >
