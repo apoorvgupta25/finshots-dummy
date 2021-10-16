@@ -20,18 +20,15 @@ export const DailyCard = ({ post }) => {
         title = post.title;
         description = post.description;
         date = new Date(post.createdAt);
-        imageURL = `${API}/daily/photo/${post._id}`;
-        name = title.replace(/\s+/g, '-').toLowerCase();
+        imageURL = `${API}/daily/photo/${post.link}`;
+        name = post.link;
     }
 
     return (
         <div className="daily-card">
             <img className="daily-image" src={imageURL} alt=""/>
             <div className="daily-content">
-                <Link to={{
-                    pathname:`/daily/${name}`,
-                    state: { postId: post._id },
-                }}>
+                <Link to={`/daily/${name}`}>
                     <header className="daily-title">{title}</header>
                 </Link>
                 <p>{description}</p>

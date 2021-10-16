@@ -10,13 +10,13 @@ import PostContent from './postContent';
 
 const Post = ({ match }) => {
 
-    const { state } = useLocation();
+    // const { state } = useLocation();
 
     const [post, setPost] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
-    const loadPost = postId => {
-        getPost(postId)
+    const loadPost = postName => {
+        getPost(postName)
         .then(data => {
             if (data.error) {
                 console.log(data.error);
@@ -28,7 +28,7 @@ const Post = ({ match }) => {
     };
 
     useEffect(() => {
-        loadPost(state.postId);
+        loadPost(match.params.postName);
     },[])
 
     // fetch gives two responses one is null
@@ -41,7 +41,7 @@ const Post = ({ match }) => {
     var content = post.content;
     var category = post.category.name;
     var date = new Date(post.createdAt);
-    var imageURL = `${API}/daily/photo/${post._id}`;
+    var imageURL = `${API}/daily/photo/${post.link}`;
     var author = post.author.name;
 
     return (

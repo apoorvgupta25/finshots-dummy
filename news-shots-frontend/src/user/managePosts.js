@@ -86,12 +86,12 @@ const ManagePosts = () => {
                                     </div>
 
                                     <div className="col-2">
-                                        <Link className="btn btn-success" to={`/update/post/${post._id}`}>
+                                        <Link className="btn btn-success" to={`/update/post/${post.name}`}>
                                             <span className="">Update</span>
                                         </Link>
                                     </div>
                                     <div className="col-2 text-center pr-5">
-                                        <button onClick={() => {deleteThisPost(post._id)}} className="btn btn-danger">Delete</button>
+                                        <button onClick={() => {deleteThisPost(post.name)}} className="btn btn-danger">Delete</button>
                                     </div>
                                 </div>
                             )

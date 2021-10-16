@@ -4,8 +4,9 @@ const formidable = require('formidable')
 const _ = require('lodash')
 const fs = require('fs');
 
-exports.getPostById = (req, res, next, id) => {
-    Post.findById(id).populate("category").populate("author", "_id name").exec((err, prod) => {
+exports.getPostByLink = (req, res, next, link) => {
+    console.log("Link",link);
+    Post.findOne({'link': link}).populate("category").populate("author", "_id name").exec((err, prod) => {
         if(err){
             return res.status(400).json({
                 error: "Post not found"
@@ -36,6 +37,7 @@ exports.createPost = (req, res) => {
 
         let post = new Post(fields);
         post.author = req.profile._id;
+        post.link = title.replace(/\s+/g, '-').toLowerCase();
 
         if(file.photo){
             if(file.photo.size > 3000000){

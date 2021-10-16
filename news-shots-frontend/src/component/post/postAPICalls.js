@@ -1,7 +1,7 @@
 import {API} from '../../backend';
 
-export const getPost = postId => {
-    return fetch(`${API}/daily/${postId}`, { method: "GET" })
+export const getPost = postName => {
+    return fetch(`${API}/daily/${postName}`, { method: "GET" })
     .then(response =>{
         return response.json();
     })
