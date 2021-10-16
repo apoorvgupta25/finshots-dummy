@@ -6,12 +6,14 @@ import {API} from '../../backend';
 import {getPost} from './postAPICalls';
 
 import NavbarTop from '../Navbar';
+import PostContent from './postContent';
 
 const Post = ({ match }) => {
 
     const { state } = useLocation();
 
     const [post, setPost] = useState([]);
+    const [isLoading, setLoading] = useState(true);
 
     const loadPost = postId => {
         getPost(postId)
@@ -20,6 +22,7 @@ const Post = ({ match }) => {
                 console.log(data.error);
             } else {
                 setPost(data);
+                setLoading(false);
             }
         })
     };
@@ -28,25 +31,18 @@ const Post = ({ match }) => {
         loadPost(state.postId);
     },[])
 
-
-    var title = "title";
-    var description = "Description";
-    var content = "content";
-    var category = "category";
-    var date = "date";
-    var imageURL = "https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg";
-    var author = "author";
-
     // fetch gives two responses one is null
-    if(post._id){
-        title = post.title;
-        description = post.description;
-        content = post.content;
-        category = post.category.name;
-        date = new Date(post.createdAt);
-        imageURL = `${API}/daily/photo/${post._id}`;
-        author = post.author.name;
+    if (isLoading){
+        return <div>Loading...</div>;
     }
+
+    var title = post.title;
+    var description = post.description;
+    var content = post.content;
+    var category = post.category.name;
+    var date = new Date(post.createdAt);
+    var imageURL = `${API}/daily/photo/${post._id}`;
+    var author = post.author.name;
 
     return (
 
@@ -65,7 +61,7 @@ const Post = ({ match }) => {
                     <div className="category">
                         LINK {category}
                     </div>
-                    {content}
+                    <PostContent content={content}/>
                 </div>
                 <div className="author"> - By {author}</div>
             </div>
