@@ -25,11 +25,13 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const categoryRoutes = require('./routes/category');
 const postRoutes = require('./routes/post');
+const subscriberRoutes = require('./routes/subscriber');
 
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", postRoutes);
+app.use("/api", subscriberRoutes);
 
 
 const port = 3001;
