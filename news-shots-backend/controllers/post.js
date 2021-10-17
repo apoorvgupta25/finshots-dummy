@@ -5,7 +5,6 @@ const _ = require('lodash')
 const fs = require('fs');
 
 exports.getPostByLink = (req, res, next, link) => {
-    console.log("Link",link);
     Post.findOne({'link': link}).populate("category").populate("author", "_id name").exec((err, prod) => {
         if(err){
             return res.status(400).json({
