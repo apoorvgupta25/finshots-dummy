@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-const {getSubscriberById, createSubscriber, getSubscriber, getAllSubscriber, removeSubscriber} = require('../controllers/subscriber')
+const {getSubscriberById, sendConfirmMail, createSubscriber, getSubscriber, getAllSubscriber, removeSubscriber} = require('../controllers/subscriber')
 
 router.param('subscriberId', getSubscriberById);
+
+router.post('/confirm', sendConfirmMail);
 
 router.post('/add/subscriber', createSubscriber);
 

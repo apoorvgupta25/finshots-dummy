@@ -1,4 +1,5 @@
 const Subscriber = require('../models/subscriber')
+const fetch = require('cross-fetch');
 
 exports.getSubscriberById = (req, res, next, id) => {
     Subscriber.findById(id).exec((err, subs) => {
@@ -11,6 +12,25 @@ exports.getSubscriberById = (req, res, next, id) => {
         next();
     });
 };
+
+exports.sendConfirmMail = (req, res) => {
+    var email = req.body.email;
+
+    fetch(`${process.env.BACKEND_API}/verify`, {
+        method: "POST",
+        body: JSON.stringify({email}),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(response => {
+        return response.json();
+    })
+    .catch(err => console.log(err));
+
+    res.json('Email Sent for verification');
+}
 
 exports.createSubscriber = (req, res) => {
     const subscriber = new Subscriber(req.body);
@@ -26,7 +46,7 @@ exports.createSubscriber = (req, res) => {
             });
         }
 
-        res.json({subscriber});
+        res.json('Subscribed to NewsShots');
     });
 };
 

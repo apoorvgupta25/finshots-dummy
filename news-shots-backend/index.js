@@ -25,6 +25,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
 
@@ -85,9 +86,6 @@ app.post('/api/send/post', (req, res, next) => {
 
     content = draftToHtml(JSON.parse(content))
 
-    let subs = "";
-
-
     var emails = [];
     fetch(`${process.env.BACKEND_API}/all/subscribers`, { method: "GET"})
         .then(response => response.json())
@@ -97,29 +95,58 @@ app.post('/api/send/post', (req, res, next) => {
                 emails.push(subscriber.email)
             })
 
-            const mail = {
-                 from: "samplesample892@gmail.com",
-                 to: emails,
-                 subject: "Email For Testing",
-                 html:
-                     `title: ${title}<br/>
-                     desc: ${desc}<br/>
-                     <a href="http://localhost:3000/daily/${link}">Read Whole article here</a><br/>
-                     ${content}`
-            };
+            emails.map((email) => {
+                const mail = {
+                     from: "samplesample892@gmail.com",
+                     to: email,
+                     subject: `NewsShots Daily - ${title}`,
+                     html:
+                         `desc: ${desc}<br/>
+                         <a href="http://localhost:3000/daily/${link}">Read Whole Article</a><br/>
+                         ${content}`
+                };
 
-            smtpTransport.sendMail(mail, (err, data) => {
-                if (err){
-                    res.json({ status: 'fail' })
-                } else {
-                    res.json({ status: 'success' })
-                }
-                 smtpTransport.close();
-            });
-
+                smtpTransport.sendMail(mail, (err, data) => {
+                    if (err){
+                        res.json({ status: 'fail' })
+                    } else {
+                        res.json({ status: 'success' })
+                    }
+                     smtpTransport.close();
+                });
+            })
         })
         .catch(err => console.log(err));
+})
 
+// Email Confirmation Link
+
+app.post('/api/verify', (req, res, next) => {
+
+    var mail = req.body.email;
+
+    const verify_mail = {
+         from: "samplesample892@gmail.com",
+         to: mail,
+         subject: "Email For Verfication to Subscribe to News-shots",
+         html:
+         `
+         Subscribe to News-shots
+         <form action="${process.env.BACKEND_API}/add/subscriber" method="post">
+            <input type="hidden" id="email" name="email" value=${mail}><br><br>
+            <input type="submit" value="Confirm Email To Subscribe">
+         </form>
+         `
+    };
+
+    smtpTransport.sendMail(verify_mail, (err, data) => {
+        if (err){
+            res.json({ status: 'fail' })
+        } else {
+            res.json({ status: 'success' })
+        }
+         smtpTransport.close();
+    });
 })
 
 // send verification message

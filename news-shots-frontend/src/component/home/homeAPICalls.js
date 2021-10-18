@@ -8,8 +8,8 @@ export const getLast3Posts = () => {
     .catch(err => console.log(err));
 };
 
-export const addSubscriber = (subscriberEmail) => {
-    return fetch(`${API}/add/subscriber`, {
+export const confirmSubscriber = (subscriberEmail) => {
+    return fetch(`${API}/confirm`, {
         method: "POST",
         headers: {
             Accept: "application/json",

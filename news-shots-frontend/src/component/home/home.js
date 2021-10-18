@@ -8,7 +8,7 @@ import './home.css';
 
 import NavbarTop from '../Navbar';
 
-import { getLast3Posts, addSubscriber } from './homeAPICalls';
+import { getLast3Posts, addSubscriber, confirmSubscriber } from './homeAPICalls';
 
 const HomeCard= ({ post }) => {
 
@@ -78,7 +78,7 @@ const Home = () => {
                     style={{ display: success ? '' : 'none' }}
                     isOpen={success}
                     toggle={onDismiss}>
-                    Email Added Succesefully
+                    Verfication Email sent to you. Click link to verify email.
                 </Alert>
             )
         }
@@ -88,8 +88,8 @@ const Home = () => {
         setSuccess(false);
         setSubError("")
     }
+
     const errorMessage = () => {
-        console.log(subError.length);
         if(subError){
             return (
                 <Alert
@@ -105,14 +105,13 @@ const Home = () => {
         }
     }
 
-
     // onSubmit
     const onSubmit = event => {
         event.preventDefault();
         setSubError("");
         setSuccess(false);
 
-        addSubscriber({email})
+        confirmSubscriber({email})
         .then(data => {
             if(data.error){
                 setSubError(data.error)
