@@ -1,16 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {Link, withRouter, useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import {API} from '../../backend';
 
 import {getPost} from './postAPICalls';
+import draftToHtml from 'draftjs-to-html';
 
 import NavbarTop from '../Navbar';
-import PostContent from './postContent';
 
 const Post = ({ match }) => {
-
-    // const { state } = useLocation();
 
     const [post, setPost] = useState([]);
     const [isLoading, setLoading] = useState(true);
@@ -61,7 +59,7 @@ const Post = ({ match }) => {
                     <div className="category">
                         LINK {category}
                     </div>
-                    <PostContent content={content}/>
+                    <div dangerouslySetInnerHTML= {{ __html: `${draftToHtml(JSON.parse(content))}` }} />
                 </div>
                 <div className="author"> - By {author}</div>
             </div>
