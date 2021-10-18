@@ -87,15 +87,17 @@ app.post('/api/send/post', (req, res, next) => {
     content = draftToHtml(JSON.parse(content))
 
     var emails = [];
+    var ids = [];
     fetch(`${process.env.BACKEND_API}/all/subscribers`, { method: "GET"})
         .then(response => response.json())
         .then(data => subs = data)
         .then(() => {
             subs.map((subscriber, index) => {
                 emails.push(subscriber.email)
+                ids.push(subscriber._id)
             })
 
-            emails.map((email) => {
+            emails.map((email, idx) => {
                 const mail = {
                      from: "samplesample892@gmail.com",
                      to: email,
@@ -103,7 +105,11 @@ app.post('/api/send/post', (req, res, next) => {
                      html:
                          `desc: ${desc}<br/>
                          <a href="http://localhost:3000/daily/${link}">Read Whole Article</a><br/>
-                         ${content}`
+                         ${content}
+
+                         <br/>
+                         <a data-confirm="Are you sure?" data-method="delete" href="${process.env.BACKEND_API}/remove/subscriber/${ids[idx]}" rel="nofollow">Unsubscribe</a>
+                         `
                 };
 
                 smtpTransport.sendMail(mail, (err, data) => {
