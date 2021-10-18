@@ -7,3 +7,18 @@ export const getLast3Posts = () => {
     })
     .catch(err => console.log(err));
 };
+
+export const addSubscriber = (subscriberEmail) => {
+    return fetch(`${API}/add/subscriber`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(subscriberEmail),
+    })
+    .then(response => {
+        return response.json()
+    })
+    .catch(err => console.log(err));
+};
