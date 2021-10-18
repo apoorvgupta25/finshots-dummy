@@ -3,6 +3,7 @@ const Category = require('../models/category')
 const formidable = require('formidable')
 const _ = require('lodash')
 const fs = require('fs');
+const fetch = require('cross-fetch');
 
 exports.getPostByLink = (req, res, next, link) => {
     Post.findOne({'link': link}).populate("category").populate("author", "_id name").exec((err, prod) => {
@@ -57,6 +58,22 @@ exports.createPost = (req, res) => {
             }
             res.json(post);
         });
+
+        post.photo = "";  //removing photo while sending it in mail
+
+        fetch(`${process.env.BACKEND_API}/send/post`, {
+            method: "POST",
+            body: JSON.stringify(post),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+
     });
 };
 
