@@ -9,11 +9,18 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem
+    DropdownItem,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Alert,
 } from 'reactstrap';
 import {Link, withRouter} from 'react-router-dom';
 
 import {getAllUniqueCategories} from '../user/helper/categoryAPICalls';
+import Subscribe from './Subscribe'
+
 import './style.css';
 
 const NavbarTop = () => {
@@ -38,8 +45,29 @@ const NavbarTop = () => {
         preload();
     }, []);
 
+    //Modal
+    const [modal, setModal] = useState(false);
+
+    const toggleModal = () => {
+        setModal(!modal);
+    }
+
+    const closeBtn = <button className="close" onClick={toggleModal}>&times;</button>;
+
+    const showModal = () => {
+        return(
+            <Modal isOpen={modal}>
+                <ModalHeader toggle={toggleModal} close={closeBtn}>Subscribe</ModalHeader>
+                    <ModalBody>
+                        Subscribe to NewsShots and Get Daily dose of News.<br/> Pinky Promise<br/><br/>
+                        <Subscribe/>
+                    </ModalBody>
+            </Modal>
+        )
+    }
     return (
         <div className="nav-container">
+            {showModal()}
             <Navbar light expand="md sticky-top nav-color">
                 <NavbarBrand className="ml-sm-5 nav-link">
                     <Link to="/" style={{ textDecoration:'none', color: 'black'}}>NewsShots</Link>
@@ -81,7 +109,7 @@ const NavbarTop = () => {
                             <Link to="/daily" style={{ textDecoration:'none', color: 'black'}}>Daily</Link>
                         </NavItem>
 
-                        <NavItem className="nav-link">
+                        <NavItem className="nav-link" onClick={toggleModal}>
                             Subscribe
                         </NavItem>
                     </Nav>
