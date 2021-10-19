@@ -26,11 +26,12 @@ const Subscribe = () => {
         if(success){
             return (
                 <Alert
+                    className="col-sm-10"
                     color="success"
                     style={{ display: success ? '' : 'none' }}
                     isOpen={success}
                     toggle={onDismiss}>
-                    Verfication Email sent to you. Click link to verify email.
+                    Verfication Link sent to email.
                 </Alert>
             )
         }
