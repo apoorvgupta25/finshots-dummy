@@ -64,36 +64,31 @@ const Signup = () => {
 
     }
 
-    //sign up method
-    const signupForm = () => {
-          return (
-              <div className="row">
-                  <div className="col-md-6 offset-sm-3 text-left">
-                      <form>
-                          <div className="form-group">
-                              <label className="text-light">Name</label>
-                              <input className="form-control" type="text" onChange={handleChange("name")} value={name}/>
-                          </div>
-                          <div className="form-group">
-                              <label className="text-light">Email</label>
-                              <input className="form-control" type="email" onChange={handleChange("email")} value={email}/>
-                          </div>
-                          <div className="form-group">
-                              <label className="text-light">Password</label>
-                              <input className="form-control" type="password" onChange={handleChange("password")} value={password}/>
-                          </div><br/>
-                      <button className="btn btn-success btn-block" onClick={onSubmit}>Submit</button>
-                      </form>
-                  </div>
-              </div>
-          )
-      }
-
     return (
         <div >
+            <h1 className="text-center mt-5 mb-5">Sign Up</h1>
+
             {successMessage()}
             {errorMessage()}
-            {signupForm()}
+            <div className="row">
+                <div className="col-md-6 offset-sm-3 text-left">
+                    <form>
+                        <div className="form-group">
+                            <label className="text-light">Name</label>
+                            <input className="form-control" type="text" onChange={handleChange("name")} value={name}/>
+                        </div>
+                        <div className="form-group">
+                            <label className="text-light">Email</label>
+                            <input className="form-control" type="email" onChange={handleChange("email")} value={email}/>
+                        </div>
+                        <div className="form-group">
+                            <label className="text-light">Password</label>
+                            <input className="form-control" type="password" onChange={handleChange("password")} value={password}/>
+                        </div><br/>
+                    <button className="btn btn-success btn-block" onClick={onSubmit}>Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 };
