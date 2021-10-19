@@ -7,7 +7,8 @@
     left:0;
 
     width: 100%;
-    height: 92vh;
+    overflow-x: hidden;
+    /* height: 92vh; */
 }
 
 /* Card */
@@ -15,8 +16,9 @@
     -ms-flex-wrap: wrap;
     display: flex;
     flex-wrap: wrap;
-    margin: 0 8vw;
-    padding: 0 4vw;
+    justify-content: center;
+    margin: 0 4vw;
+    padding: 0 2vw;
 }
 
 /* For Mobile */

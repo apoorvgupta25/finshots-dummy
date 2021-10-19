@@ -67,28 +67,29 @@ const Home = () => {
             <NavbarTop/>
 
             <div className="container-first">
-                <div className="row">
-                    <div className="col-sm-6 mt-5 text-center">
-                        <h1>Dummy Records</h1>
+                <div className="row mt-5">
+                    <div className="col-sm-7">
+                        <h1 className="text-center">Recent Posts</h1>
+                        <div className="pt-3 home-card-feed">
+                            {posts.map((post, index) => {
+                                return (
+                                    <div key={index}>
+                                        <HomeCard post={post}/>
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
-                    <div className="col-sm-6 mt-5 text-center">
+                    <div className="col-sm-5 text-center">
                         <h1>Subscribe</h1>
-                        <div className="col-sm-7 offset-sm-3">
+                        <div className="offset-sm-2 mr-5">
                             <Subscribe/>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="home-card-feed">
-                {posts.map((post, index) => {
-                    return (
-                        <div key={index}>
-                            <HomeCard post={post}/>
-                        </div>
-                    )
-                })}
-            </div>
+
         </div>
 
     )
