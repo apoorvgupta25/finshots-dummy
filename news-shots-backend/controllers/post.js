@@ -121,6 +121,7 @@ exports.updatePost = (req, res) => {
 
         let post = req.post;
         post = _.extend(post, fields)
+        post.link = fields.title.replace(/\s+/g, '-').toLowerCase();
 
         if(file.photo){
             if(file.photo.size > 3000000){

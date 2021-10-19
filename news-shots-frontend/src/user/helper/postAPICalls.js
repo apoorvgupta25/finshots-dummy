@@ -23,16 +23,16 @@ export const getAllPosts = () => {
     .catch(err => console.log(err));
 };
 
-export const getPost = postId => {
-    return fetch(`${API}/daily/${postId}`, { method: "GET" })
+export const getPost = postName => {
+    return fetch(`${API}/daily/${postName}`, { method: "GET" })
     .then(response =>{
         return response.json();
     })
     .catch(err => console.log(err));
 };
 
-export const updatePost = (postId, userId, token, post) => {
-    return fetch(`${API}/daily/${userId}/${postId}`,{
+export const updatePost = (postName, userId, token, post) => {
+    return fetch(`${API}/daily/${userId}/${postName}`,{
         method: "PUT",
         headers: {
             Accept: "application/json",
@@ -46,8 +46,8 @@ export const updatePost = (postId, userId, token, post) => {
     .catch(err => console.log(err));
 };
 
-export const deletePost = (postId, userId, token) => {
-    return fetch(`${API}/daily/${userId}/${postId}`,{
+export const deletePost = (postName, userId, token) => {
+    return fetch(`${API}/daily/${userId}/${postName}`,{
         method: "DELETE",
         headers: {
             Accept: "application/json",

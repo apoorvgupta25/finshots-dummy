@@ -41,7 +41,7 @@ export default function Routes(){
 
                 <PrivateRoute path="/create/post" exact component={CreatePost}/>
                 <PrivateRoute path="/manage/posts" exact component={ManagePosts}/>
-                <PrivateRoute path="/update/post/:postId" exact component={UpdatePost}/>
+                <PrivateRoute path="/update/post/:postName" exact component={UpdatePost}/>
 
                 <Route component = {NotFound}/>
             </Switch>

@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useState, useEffect, useCallback} from 'react';
+import {Link, Redirect} from 'react-router-dom';
 
 import {updatePost, getPost} from './helper/postAPICalls';
 import {isAuth} from '../auth/authAPICalls'
@@ -28,6 +28,10 @@ const UpdatePost = ({match}) => {
     const [contentState, setContentState] = useState(convertFromRaw(editorStateAsJSONString));
     const [editorState, setEditorState]  = useState(EditorState.createWithContent(contentState));
     const [con, setCon] = useState('');
+    const [timerCount, setTimerCount] = useState(10);
+    const [redirect, setRedirect] = useState(false);
+    const defaultCount = 3;
+    const intervalGap = 1000;
 
     const {title, description, content, categories, category, author, createdPost, error, formData } = values;
     const {user, token} = isAuth();
@@ -44,7 +48,7 @@ const UpdatePost = ({match}) => {
     const successMessage = () => {
         return (
             <div className="alert alert-success mt-3" style={{display: createdPost ? "" : "none"}}>
-                <h4>{createdPost} Updated Successfully</h4>
+                <h4>{createdPost} Updated Successfully. Redirecting in {timerCount}...</h4>
             </div>
         )
     }
@@ -57,8 +61,8 @@ const UpdatePost = ({match}) => {
         )
     }
 
-    const preload = postId => {
-        getPost(postId)
+    const preload = postName => {
+        getPost(postName)
         .then(data => {
             if(data.error){
                 setValues({...values, error: data.error});
@@ -94,14 +98,14 @@ const UpdatePost = ({match}) => {
     }
 
     useEffect(() => {
-        preload(match.params.postId);
+        preload(match.params.postName);
     }, [])
 
 
     const onSubmit = event => {
         event.preventDefault();
         setValues({...values, error:"" ,loading: true});
-        updatePost(match.params.postId, user._id, token, formData)
+        updatePost(match.params.postName, user._id, token, formData)
             .then(data => {
                 if(data.error){
                     setValues({...values, error: data.error})
@@ -118,6 +122,62 @@ const UpdatePost = ({match}) => {
                     })
                 }
             })
+
+        startTimer();
+    }
+
+    //Timer
+    const startTimerWrapper = useCallback((func)=>{
+        let timeInterval: NodeJS.Timer;
+        return () => {
+            if(timeInterval) {
+                clearInterval(timeInterval)
+            }
+            setTimerCount(defaultCount)
+            timeInterval = setInterval(() => {
+                func(timeInterval)
+            }, intervalGap)
+        }
+    }, [])
+
+    const startTimer = useCallback(startTimerWrapper((intervalfn: NodeJS.Timeout) => {
+         setTimerCount((val) => {
+            if(val === 0 ) {
+                setRedirect(true);
+                clearInterval(intervalfn);
+                return val
+            }
+            return val - 1
+        })
+    }), [])
+
+    /*
+    // Timer-2 : Error state not updating inside useCallback
+    const [timer, setTimer] = useState(0);
+    const [secs, setSecs] = useState(5);
+    console.log(secs, timer);
+
+    const onClickStartTimer = useCallback(() => {
+        if (timer == 0 && secs > 0) {
+            setTimer(setInterval(countDown, 1000));
+        }
+    },[]);
+
+    const countDown = useCallback(() => {
+        let seconds = secs - 1;
+        setSecs(secs-1);
+
+        if (seconds == 0) {
+            clearInterval(timer);
+        }
+    },[]);
+    */
+
+    // Redirect
+    const performRedirect = () => {
+        if(redirect){
+            return <Redirect to={`/manage/posts`}/>
+        }
     }
 
     const goBack = () => (
@@ -194,6 +254,7 @@ const UpdatePost = ({match}) => {
 
                         <button className="btn btn-outline-success mb-3" type="submit" onClick={onSubmit}>Update Post</button>
                     </form>
+                    {performRedirect()}
                 </div>
             </div>
         </div>
