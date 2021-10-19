@@ -50,6 +50,7 @@ exports.createPost = (req, res) => {
             post.photo.contentType = file.photo.type;
         }
 
+
         post.save((err, post) => {
             if(err){
                 return res.status(400).json({
@@ -59,11 +60,13 @@ exports.createPost = (req, res) => {
             res.json(post);
         });
 
-        post.photo = "";  //removing photo while sending it in mail
+        let mailPost = new Post(fields);
+        mailPost.author = req.profile._id;
+        mailPost.link = title.replace(/\s+/g, '-').toLowerCase();
 
         fetch(`${process.env.BACKEND_API}/send/post`, {
             method: "POST",
-            body: JSON.stringify(post),
+            body: JSON.stringify(mailPost),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
