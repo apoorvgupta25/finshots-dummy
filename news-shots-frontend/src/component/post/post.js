@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 
 import {API} from '../../backend';
 
+import styles from './post.module.css';
+
 import {getPost} from './postAPICalls';
 import draftToHtml from 'draftjs-to-html';
 
@@ -42,26 +44,36 @@ const Post = ({ match }) => {
     var imageURL = `${API}/daily/photo/${post.link}`;
     var author = post.author.name;
 
+    // <span> <a href={`/tag/${category}`}> {category}</a></span>
     return (
 
         <div className="">
             <NavbarTop/>
 
-            <div className="container">
-                <div className="heading">
-                    <span className="date"> {date.toString()} </span>
-                    <span className="category"> {category} </span>
-                    <div className="title">{title}</div>
-                    <div className="description"> {description} </div>
+            <div className={styles.postContainer}>
+                <div className={styles.headingMeta}>
+                    <span> {date.toString().slice(3, 16)} / </span>
+
+                    <Link
+                        style={{ textDecoration:'none',}}
+                        to={{
+                            pathname:`/tag/${category}`,
+                            state: {
+                              categoryId: post.category._id,
+                            },
+                        }}>{category}
+                    </Link>
                 </div>
 
-                <div className="content">
-                    <div className="category">
-                        LINK {category}
-                    </div>
+                <div className={styles.title}>{title}</div>
+                <img className={styles.image} src={imageURL}/>
+
+                <div className={styles.content}>
+                    <div className={styles.description}>{description} </div>
+                    <div className={styles.category}> {category}</div>
                     <div dangerouslySetInnerHTML= {{ __html: `${draftToHtml(JSON.parse(content))}` }} />
+                    <div className="pull-right"> - By {author}</div>
                 </div>
-                <div className="author"> - By {author}</div>
             </div>
         </div>
 
