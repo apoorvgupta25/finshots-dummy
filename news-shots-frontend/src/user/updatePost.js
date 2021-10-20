@@ -28,10 +28,8 @@ const UpdatePost = ({match}) => {
     const [contentState, setContentState] = useState(convertFromRaw(editorStateAsJSONString));
     const [editorState, setEditorState]  = useState(EditorState.createWithContent(contentState));
     const [con, setCon] = useState('');
-    const [timerCount, setTimerCount] = useState(10);
     const [redirect, setRedirect] = useState(false);
-    const defaultCount = 3;
-    const intervalGap = 1000;
+
 
     const {title, description, content, categories, category, author, createdPost, error, formData } = values;
     const {user, token} = isAuth();
@@ -48,7 +46,7 @@ const UpdatePost = ({match}) => {
     const successMessage = () => {
         return (
             <div className="alert alert-success mt-3" style={{display: createdPost ? "" : "none"}}>
-                <h4>{createdPost} Updated Successfully. Redirecting in {timerCount}...</h4>
+                <h4>{createdPost} Updated Successfully.</h4>
             </div>
         )
     }
@@ -123,61 +121,15 @@ const UpdatePost = ({match}) => {
                 }
             })
 
-        startTimer();
+        // startTimer();
+        setTimeout(() => { setRedirect(true); }, 1000);
+
     }
 
-    //Timer
-    const startTimerWrapper = useCallback((func)=>{
-        let timeInterval: NodeJS.Timer;
-        return () => {
-            if(timeInterval) {
-                clearInterval(timeInterval)
-            }
-            setTimerCount(defaultCount)
-            timeInterval = setInterval(() => {
-                func(timeInterval)
-            }, intervalGap)
-        }
-    }, [])
-
-    const startTimer = useCallback(startTimerWrapper((intervalfn: NodeJS.Timeout) => {
-         setTimerCount((val) => {
-            if(val === 0 ) {
-                setRedirect(true);
-                clearInterval(intervalfn);
-                return val
-            }
-            return val - 1
-        })
-    }), [])
-
-    /*
-    // Timer-2 : Error state not updating inside useCallback
-    const [timer, setTimer] = useState(0);
-    const [secs, setSecs] = useState(5);
-    console.log(secs, timer);
-
-    const onClickStartTimer = useCallback(() => {
-        if (timer == 0 && secs > 0) {
-            setTimer(setInterval(countDown, 1000));
-        }
-    },[]);
-
-    const countDown = useCallback(() => {
-        let seconds = secs - 1;
-        setSecs(secs-1);
-
-        if (seconds == 0) {
-            clearInterval(timer);
-        }
-    },[]);
-    */
 
     // Redirect
-    const performRedirect = () => {
-        if(redirect){
-            return <Redirect to={`/manage/posts`}/>
-        }
+    if(redirect){
+        return <Redirect to={`/manage/posts`}/>
     }
 
     const goBack = () => (
@@ -254,7 +206,6 @@ const UpdatePost = ({match}) => {
 
                         <button className="btn btn-outline-success mb-3" type="submit" onClick={onSubmit}>Update Post</button>
                     </form>
-                    {performRedirect()}
                 </div>
             </div>
         </div>
@@ -263,3 +214,55 @@ const UpdatePost = ({match}) => {
 }
 
 export default UpdatePost;
+
+/*
+//Timer-1
+//states
+const [timerCount, setTimerCount] = useState(10);
+const defaultCount = 3;
+const intervalGap = 1000;
+const startTimerWrapper = useCallback((func)=>{
+    let timeInterval: NodeJS.Timer;
+    return () => {
+        if(timeInterval) {
+            clearInterval(timeInterval)
+        }
+        setTimerCount(defaultCount)
+        timeInterval = setInterval(() => {
+            func(timeInterval)
+        }, intervalGap)
+    }
+}, [])
+
+const startTimer = useCallback(startTimerWrapper((intervalfn: NodeJS.Timeout) => {
+     setTimerCount((val) => {
+        if(val === 0 ) {
+            setRedirect(true);
+            clearInterval(intervalfn);
+            return val
+        }
+        return val - 1
+    })
+}), [])
+
+// Timer-2 : Error state not updating inside useCallback
+//states
+const [timer, setTimer] = useState(0);
+const [secs, setSecs] = useState(5);
+console.log(secs, timer);
+
+const onClickStartTimer = useCallback(() => {
+    if (timer == 0 && secs > 0) {
+        setTimer(setInterval(countDown, 1000));
+    }
+},[]);
+
+const countDown = useCallback(() => {
+    let seconds = secs - 1;
+    setSecs(secs-1);
+
+    if (seconds == 0) {
+        clearInterval(timer);
+    }
+},[]);
+*/
