@@ -66,16 +66,16 @@ const ManagePosts = () => {
                     return (
                         (
                             <div key={index} className="row mb-2 ">
-                                <div className="col-2">
+                                <div className="col-1">
                                     <h4 className="lead">{(new Date(post.createdAt)).toString().slice(3, 16)}</h4>
                                 </div>
 
-                                <div className="col-2">
+                                <div className="col-3">
                                     <img className="daily-image" src={`${API}/daily/photo/${post.link}`} alt=""/>
                                 </div>
 
                                 <div className="col-2">
-                                    <h4 className="lead">{post.title}</h4>
+                                    <Link to={`/daily/${post.link}`} target="_blank"><h4 className="lead">{post.title}</h4></Link>
                                 </div>
 
                                 <div className="col-2">
