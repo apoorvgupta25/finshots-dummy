@@ -31,7 +31,7 @@ export const DailyCard = ({ post }) => {
                 <Link to={`/daily/${name}`}>
                     <header className="daily-title">{title}</header>
                 </Link>
-                <p>{description}</p>
+                <p className="daily-description">{description}</p>
             </div>
             <footer className="daily-footer">
                 <p> {date.toString().slice(3,16)} </p>

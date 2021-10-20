@@ -30,11 +30,11 @@ const HomeCard= ({ post }) => {
         <div className="home-card">
             <img className="home-image" src={imageURL} alt=""/>
             <div className="home-content">
-                <p> {date.toString().slice(3,25)} </p>
+                <p> {date.toString().slice(3, 16)} </p>
                 <Link to={`/daily/${name}`}>
                     <header className="home-title">{title}</header>
                 </Link>
-                <p>{description}</p>
+                <p className="home-description">{description}</p>
             </div>
         </div>
     );
