@@ -42,10 +42,10 @@ const Dashboard = ({ match }) => {
                 <h4 className="card-header">Info</h4>
                 <ul className="list-group">
                     <li className="list-group-item">
-                        <span className="badge badge-success mr-2">Name</span> {name}
+                        <div className="badge badge-success mr-2">Name</div> {name}
                     </li>
                     <li className="list-group-item">
-                        <span className="badge badge-success mr-2">Email</span> {email}
+                        <div className="badge badge-success mr-2">Email</div> {email}
                     </li>
                     <li className="list-group-item">
                         <Link to="/signin" onClick={signoutUser} className="btn btn-primary">Sign Out</Link>
