@@ -1,14 +1,6 @@
 .container-first {
-    /* position:fixed; */
-    padding:0;
-    margin:0;
-
-    top:0;
-    left:0;
-
-    width: 100%;
-    overflow-x: hidden;
-    /* height: 92vh; */
+    padding: 0 1rem;
+    margin: 0 2rem;
 }
 
 /* Card */
@@ -17,15 +9,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 0 4vw;
-    padding: 0 2vw;
 }
 
 /* For Mobile */
 @media screen and (max-width: 540px) {
-    .home-card-feed {
-        margin: 0;
-        padding: 0 2vw;
+    .container-first {
+        margin: 0 1rem;
     }
 }
 
@@ -43,7 +32,8 @@
     overflow: hidden;
     flex: 1 1 250px;
     margin: 0 20px 40px;
-    min-height: 200px;
+    min-height: 300px;
+    width: 250px;
     background: #fff 50%;
     background-size: cover;
     border-radius: 5px;
@@ -53,7 +43,7 @@
 }
 
 .home-image {
-    height: 100px;
+    height: 150px;
     background: #c5d2d9 no-repeat 50%;
     object-fit: cover;
     -o-object-fit: cover;
@@ -76,6 +66,7 @@
 }
 
 .home-title{
+    padding-top: 1rem;
     margin-top: 15px;
     font-size: 20px;
     color: #15171A;

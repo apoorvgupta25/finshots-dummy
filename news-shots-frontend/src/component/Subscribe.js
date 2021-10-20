@@ -98,10 +98,12 @@ const Subscribe = () => {
         <div className="">
             {successMessage()}
             {errorMessage()}
-            <form className="mr-5 ">
-                <div className="form-group py-2">
-                    <input type="email" className="form-control my-3" onChange={handleChange} value={email} autoFocus required placeholder="Enter Email Address"/>
-                    <button className="btn btn-outline-info pull-right" onClick={onSubmit}>Subscribe</button>
+            <form>
+                <div className="row">
+                    <div className="form-group py-2 col-lg-10">
+                        <input type="email" className="form-control my-3" onChange={handleChange} value={email} autoFocus required placeholder="Enter Email Address"/>
+                        <button className="btn btn-outline-info pull-right" onClick={onSubmit}>Subscribe</button>
+                    </div>
                 </div>
             </form>
 

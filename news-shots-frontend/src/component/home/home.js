@@ -63,12 +63,12 @@ const Home = () => {
 
     return (
 
-        <div className="">
+        <div>
             <NavbarTop/>
 
             <div className="container-first">
                 <div className="row mt-5">
-                    <div className="col-sm-7">
+                    <div className="col-sm-8">
                         <h1 className="text-center">Recent Posts</h1>
                         <div className="pt-3 home-card-feed">
                             {posts.map((post, index) => {
@@ -80,9 +80,9 @@ const Home = () => {
                             })}
                         </div>
                     </div>
-                    <div className="col-sm-5 text-center">
+                    <div className="col-sm-4 text-center">
                         <h1>Subscribe</h1>
-                        <div className="offset-sm-2 mr-5">
+                        <div className="">
                             <Subscribe/>
                         </div>
                     </div>
