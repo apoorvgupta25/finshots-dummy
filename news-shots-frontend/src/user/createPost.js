@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 import {createPost} from './helper/postAPICalls';
 import {getAllCategories} from './helper/categoryAPICalls';
@@ -20,13 +20,15 @@ const CreatePost = () => {
         category: '',
         author: '',
         createdPost: '',
+        postLink: '',
         error: '',
         formData: ''
     });
 
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
+    const [redirect, setRedirect] = useState(false);
 
-    const {title, description, content, categories, category, author, createdPost, error, formData } = values;
+    const {title, description, content, categories, category, author, createdPost, postLink, error, formData } = values;
     const {user, token} = isAuth();
 
     const preload = () => {
@@ -85,10 +87,18 @@ const CreatePost = () => {
                         photo: "",
                         author: "",
                         category: "",
-                        createdPost: data.title
+                        createdPost: data.title,
+                        postLink: data.link
                     })
                 }
             })
+
+            setTimeout(() => { setRedirect(true); }, 1000);
+    }
+
+    // Redirect
+    if(redirect){
+        return <Redirect to={`../daily/${postLink}`}/>
     }
 
     const goBack = () => (
@@ -118,8 +128,6 @@ const CreatePost = () => {
              />
          )
     }
-
-    // <textarea className="form-control" type="textarea" placeholder="Content" onChange={handleChange("content")} value={content} />
 
     return (
         <div className="container bg-info p-4">
