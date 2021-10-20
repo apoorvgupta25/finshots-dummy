@@ -7,7 +7,8 @@ const postSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      maxlength: 32,
+      maxlength: 1000,
+      unique: true,
     },
     link: {
       type: String,

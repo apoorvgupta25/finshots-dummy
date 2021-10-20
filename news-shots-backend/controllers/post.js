@@ -37,7 +37,7 @@ exports.createPost = (req, res) => {
 
         let post = new Post(fields);
         post.author = req.profile._id;
-        post.link = title.replace(/\s+/g, '-').toLowerCase();
+        post.link = title.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?']/g,"").replace(/\s+/g, '-').toLowerCase();
 
         if(file.photo){
             if(file.photo.size > 3000000){
