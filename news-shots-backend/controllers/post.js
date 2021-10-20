@@ -7,7 +7,7 @@ const fetch = require('cross-fetch');
 
 exports.getPostByLink = (req, res, next, link) => {
     Post.findOne({'link': link}).populate("category").populate("author", "_id name").exec((err, prod) => {
-        if(err){
+        if(prod === null){
             return res.status(400).json({
                 error: "Post not found"
             });

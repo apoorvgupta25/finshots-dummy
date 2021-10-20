@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 import {API} from '../../backend';
 
@@ -9,20 +9,24 @@ import {getPost} from './postAPICalls';
 import draftToHtml from 'draftjs-to-html';
 
 import NavbarTop from '../Navbar';
+import NotFound from '../../NotFound.js';
 
 const Post = ({ match }) => {
 
     const [post, setPost] = useState([]);
     const [isLoading, setLoading] = useState(true);
+    const [notFound, setNotFound] = useState(false);
 
     const loadPost = postName => {
         getPost(postName)
         .then(data => {
             if (data.error) {
-                console.log(data.error);
+                setNotFound(true);
+                setLoading(false);
             } else {
                 setPost(data);
                 setLoading(false);
+                setNotFound(false);
             }
         })
     };
@@ -36,6 +40,10 @@ const Post = ({ match }) => {
         return <div>Loading...</div>;
     }
 
+    if(notFound){
+        return <NotFound/>;
+    }
+
     var title = post.title;
     var description = post.description;
     var content = post.content;
@@ -44,7 +52,6 @@ const Post = ({ match }) => {
     var imageURL = `${API}/daily/photo/${post.link}`;
     var author = post.author.name;
 
-    // <span> <a href={`/tag/${category}`}> {category}</a></span>
     return (
 
         <div className="">
