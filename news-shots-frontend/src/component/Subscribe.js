@@ -10,7 +10,7 @@ import {Link, withRouter} from 'react-router-dom';
 
 import {confirmSubscriber} from './home/homeAPICalls';
 
-const Subscribe = () => {
+const Subscribe = ({isModal = false}) => {
 
     const [email, setEmail] = useState("");
     const [subError, setSubError] = useState(false);
@@ -100,10 +100,19 @@ const Subscribe = () => {
             {errorMessage()}
             <form>
                 <div className="row">
+                {isModal && (
+                    <div className="form-group py-2 col-lg-12">
+                        <input type="email" className="form-control my-3" onChange={handleChange} value={email} autoFocus required placeholder="Enter Email Address"/>
+                        <button className="btn btn-outline-info pull-right" onClick={onSubmit}>Subscribe</button>
+                    </div>
+                )}
+
+                {!isModal && (
                     <div className="form-group py-2 col-lg-10">
                         <input type="email" className="form-control my-3" onChange={handleChange} value={email} autoFocus required placeholder="Enter Email Address"/>
                         <button className="btn btn-outline-info pull-right" onClick={onSubmit}>Subscribe</button>
                     </div>
+                )}
                 </div>
             </form>
 

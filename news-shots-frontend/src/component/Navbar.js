@@ -60,7 +60,7 @@ const NavbarTop = () => {
                 <ModalHeader toggle={toggleModal} close={closeBtn}>Subscribe</ModalHeader>
                     <ModalBody>
                         Subscribe to NewsShots and Get Daily dose of News.<br/> Pinky Promise<br/><br/>
-                        <Subscribe/>
+                        <Subscribe isModal={true}/>
                     </ModalBody>
             </Modal>
         )
