@@ -10,7 +10,7 @@ router.post('/confirm', sendConfirmMail);
 router.post('/add/subscriber', createSubscriber);
 
 router.get('/subscriber/:subscriberId', getSubscriber);
-router.get('/all/subscribers', getAllSubscriber);
+router.get('/subscribers', getAllSubscriber);
 
 router.get('/remove/subscriber/:subscriberId', removeSubscriber);
 

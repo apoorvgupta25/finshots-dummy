@@ -9,8 +9,6 @@ const { google } = require("googleapis");
 var draftToHtml = require('draftjs-to-html');
 const fetch = require('cross-fetch');
 
-// var {getAllSubs} = require('./config.js');
-
 const app = express();
 
 // DB connection
@@ -86,7 +84,7 @@ app.post('/api/send/post', (req, res, next) => {
 
     content = draftToHtml(JSON.parse(content))
 
-    fetch(`${process.env.BACKEND_API}/all/subscribers`, { method: "GET"})
+    fetch(`${process.env.BACKEND_API}/subscribers`, { method: "GET"})
         .then(response => response.json())
         .then(data => subs = data)
         .then(() => {
