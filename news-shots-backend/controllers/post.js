@@ -62,8 +62,8 @@ exports.createPost = (req, res) => {
 
         let mailPost = new Post(fields);
         mailPost.author = req.profile._id;
-        mailPost.link = title.replace(/\s+/g, '-').toLowerCase();
-
+        mailPost.link = title.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?']/g,"").replace(/\s+/g, '-').toLowerCase();
+        
         fetch(`${process.env.BACKEND_API}/send/post`, {
             method: "POST",
             body: JSON.stringify(mailPost),
@@ -121,7 +121,7 @@ exports.updatePost = (req, res) => {
 
         let post = req.post;
         post = _.extend(post, fields)
-        post.link = fields.title.replace(/\s+/g, '-').toLowerCase();
+        post.link = fields.title.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?']/g,"").replace(/\s+/g, '-').toLowerCase();
 
         if(file.photo){
             if(file.photo.size > 3000000){
