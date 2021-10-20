@@ -1,20 +1,19 @@
 import React, {useState, useEffect} from 'react';
-import {Link, withRouter, useLocation} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 
 import NavbarTop from '../Navbar';
 import {DailyCard} from '../daily/daily';
 
 import {getCategoryPosts} from './categoryAPICalls';
 
-const Category = () => {
+const Category = ({match}) => {
 
-    const { state } = useLocation();
     const [error, setError] = useState(false);
     const [posts, setPosts] = useState([]);
     const [reload, setReload] = useState(false);
 
-    const loadAllPosts = categoryId => {
-        getCategoryPosts(categoryId)
+    const loadAllPosts = categoryName => {
+        getCategoryPosts(categoryName)
         .then(data => {
             if (data.error) {
                 setError(data.error);
@@ -27,7 +26,7 @@ const Category = () => {
     };
 
     useEffect(() => {
-        loadAllPosts(state.categoryId)
+        loadAllPosts(match.params.categoryName)
     },[reload])
 
     return (

@@ -32,8 +32,8 @@ export const getAllUniqueCategories = () => {
     .catch(err => console.log(err));
 }
 
-export const deleteCategory = (categoryId, userId, token) => {
-    return fetch(`${API}/category/${userId}/${categoryId}`,{
+export const deleteCategory = (categoryName, userId, token) => {
+    return fetch(`${API}/category/${userId}/${categoryName}`,{
         method: "DELETE",
         headers: {
             Accept: "application/json",
@@ -47,8 +47,8 @@ export const deleteCategory = (categoryId, userId, token) => {
     .catch(err => console.log(err));
 }
 
-export const updateCategory = (categoryId, userId, token, category) => {
-    return fetch(`${API}/category/${userId}/${categoryId}`,{
+export const updateCategory = (categoryName, userId, token, category) => {
+    return fetch(`${API}/category/${userId}/${categoryName}`,{
         method: "PUT",
         headers: {
             Accept: "application/json",
@@ -63,8 +63,8 @@ export const updateCategory = (categoryId, userId, token, category) => {
     .catch(err => console.log(err));
 };
 
-export const getCategory = categoryId => {
-    return fetch(`${API}/category/${categoryId}`, { method: "GET" })
+export const getCategory = categoryName => {
+    return fetch(`${API}/category/${categoryName}`, { method: "GET" })
     .then(response =>{
         return response.json();
     })

@@ -29,8 +29,8 @@ const UpdateCategory = ({match}) => {
         }
     }
 
-    const preload = categoryId => {
-        getCategory(categoryId)
+    const preload = categoryName => {
+        getCategory(categoryName)
         .then(data => {
             if(data.error){
                 setError(true)
@@ -44,14 +44,14 @@ const UpdateCategory = ({match}) => {
     }
 
     useEffect(() => {
-        preload(match.params.categoryId);
+        preload(match.params.categoryName);
     }, [])
 
     const onSubmit = event => {
         event.preventDefault();
         setError("");
         setSuccess(false);
-        updateCategory(match.params.categoryId, user._id, token, {name})
+        updateCategory(match.params.categoryName, user._id, token, {name})
         .then(data => {
             if(data.error){
                 setError(true)

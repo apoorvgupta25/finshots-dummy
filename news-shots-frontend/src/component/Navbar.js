@@ -86,12 +86,7 @@ const NavbarTop = () => {
                                                 className="text-bold"
                                                 style={{ textDecoration:'none', color: 'black'}}
                                                 key={index}
-                                                to={{
-                                                    pathname:`/tag/${category.name}`,
-                                                    state: {
-                                                      categoryId: category._id,
-                                                    },
-                                                }}>
+                                                to={`/tag/${category.name}`}>
                                                 <DropdownItem>
                                                 {category.name}
                                                 </DropdownItem>

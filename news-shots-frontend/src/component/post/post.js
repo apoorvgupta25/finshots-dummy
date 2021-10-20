@@ -63,12 +63,7 @@ const Post = ({ match }) => {
 
                     <Link
                         style={{ textDecoration:'none',}}
-                        to={{
-                            pathname:`/tag/${category}`,
-                            state: {
-                              categoryId: post.category._id,
-                            },
-                        }}>{category}
+                        to={`/tag/${category}`}>{category}
                     </Link>
                 </div>
 

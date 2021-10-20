@@ -1,9 +1,9 @@
 const Category = require('../models/category')
 
-exports.getCategoryById = (req, res, next, id) => {
+exports.getCategoryByName = (req, res, next, name) => {
 
-    Category.findById(id).exec((err, categ) => {
-        if(err){
+    Category.findOne({'name': name}).exec((err, categ) => {
+        if(categ == null){
             return res.status(400).json({
                 error: "Category not found in db"
             });

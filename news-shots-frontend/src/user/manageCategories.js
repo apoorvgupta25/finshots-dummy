@@ -28,8 +28,8 @@ const ManageCategories = () => {
     }, []);
 
 
-    const deleteThisCategory = categoryId => {
-        deleteCategory(categoryId, user._id, token)
+    const deleteThisCategory = categoryName => {
+        deleteCategory(categoryName, user._id, token)
         .then(data => {
             if(data.error){
                 console.log(data.error);
@@ -73,12 +73,12 @@ const ManageCategories = () => {
                                     <h4 className="lead">{category.name}</h4>
                                 </div>
                                 <div className="col-4">
-                                    <Link className="btn btn-success" to={`/update/category/${category._id}`}>
+                                    <Link className="btn btn-success" to={`/update/category/${category.name}`}>
                                         <span className="">Update</span>
                                     </Link>
                                 </div>
                                 <div className="col-4 text-center pr-5">
-                                    <button onClick={() => {deleteThisCategory(category._id)}} className="btn btn-danger">Delete</button>
+                                    <button onClick={() => {deleteThisCategory(category.name)}} className="btn btn-danger">Delete</button>
                                 </div>
                             </div>
                         )

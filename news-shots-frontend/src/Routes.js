@@ -29,7 +29,7 @@ export default function Routes(){
                 <Route path="/" exact component={Home}/>
                 <Route path="/daily" exact component={Daily}/>
                 <Route path="/daily/:postName" exact component={Post}/>
-                <Route path="/tag/:categoryId" exact component={Category}/>
+                <Route path="/tag/:categoryName" exact component={Category}/>
 
                 <Route path="/signin" exact component={Signin}/>
 
@@ -37,7 +37,7 @@ export default function Routes(){
 
                 <PrivateRoute path="/create/category" exact component={CreateCategory}/>
                 <PrivateRoute path="/manage/categories" exact component={ManageCategories}/>
-                <PrivateRoute path="/update/category/:categoryId" exact component={UpdateCategory}/>
+                <PrivateRoute path="/update/category/:categoryName" exact component={UpdateCategory}/>
 
                 <PrivateRoute path="/create/post" exact component={CreatePost}/>
                 <PrivateRoute path="/manage/posts" exact component={ManagePosts}/>
