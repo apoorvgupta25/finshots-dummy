@@ -40,7 +40,7 @@ const ManagePosts = () => {
 
     const goBack = () => (
         <div className="mt-5 ml-3">
-            <Link className="btn btn-sm btn-success mb-3" to={`/dashboard/${user._id}`}>Admin Home</Link>
+            <Link className="btn btn-sm btn-success mb-3" to={`/dashboard/${user._id}`}>Home</Link>
         </div>
     )
 
