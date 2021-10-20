@@ -86,29 +86,23 @@ app.post('/api/send/post', (req, res, next) => {
 
     content = draftToHtml(JSON.parse(content))
 
-    var emails = [];
-    var ids = [];
     fetch(`${process.env.BACKEND_API}/all/subscribers`, { method: "GET"})
         .then(response => response.json())
         .then(data => subs = data)
         .then(() => {
             subs.map((subscriber, index) => {
-                emails.push(subscriber.email)
-                ids.push(subscriber._id)
-            })
 
-            emails.map((email, idx) => {
                 const mail = {
                      from: "samplesample892@gmail.com",
-                     to: email,
+                     to: subscriber.email,
                      subject: `NewsShots Daily - ${title}`,
                      html:
-                         `desc: ${desc}<br/>
-                         <a href="http://localhost:3000/daily/${link}">Read Whole Article</a><br/>
+                         `<div style="font-size:2rem">${desc}</div><br/>
+                         <a href="http://localhost:3000/daily/${link}">Read On Website</a><br/>
                          ${content}
 
                          <br/>
-                         <a data-confirm="Are you sure?" data-method="delete" href="${process.env.BACKEND_API}/remove/subscriber/${ids[idx]}" rel="nofollow">Unsubscribe</a>
+                         <a data-confirm="Are you sure?" data-method="delete" href="${process.env.BACKEND_API}/remove/subscriber/${subscriber._id}" rel="nofollow">Unsubscribe</a>
                          `
                 };
 
@@ -121,8 +115,9 @@ app.post('/api/send/post', (req, res, next) => {
                      smtpTransport.close();
                 });
             })
-        })
-        .catch(err => console.log(err));
+            .catch(err => console.log(err));
+            })
+
 })
 
 // Email Confirmation Link
