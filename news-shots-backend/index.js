@@ -96,7 +96,7 @@ app.post('/api/send/post', (req, res, next) => {
                      subject: `NewsShots Daily - ${title}`,
                      html:
                          `<div style="font-size:2rem">${desc}</div><br/>
-                         <a href="http://localhost:3000/daily/${link}">Read On Website</a><br/>
+                         <a href="${process.env.FRONTEND_API}/daily/${link}">Read On Website</a><br/>
                          ${content}
 
                          <br/>
