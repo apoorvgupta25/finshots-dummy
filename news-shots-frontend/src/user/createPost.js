@@ -90,10 +90,10 @@ const CreatePost = () => {
                         createdPost: data.title,
                         postLink: data.link
                     })
+                    setTimeout(() => { setRedirect(true); }, 1000);
                 }
             })
 
-            setTimeout(() => { setRedirect(true); }, 1000);
     }
 
     // Redirect
