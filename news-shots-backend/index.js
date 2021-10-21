@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
     res.send('Working');
 })
 
-app.listen(port, () => { console.log("Port is ready");})
+app.listen(process.env.PORT || 3001, () => { console.log("Port is ready");})
 
 // Email Notification
 // OAuth setup
