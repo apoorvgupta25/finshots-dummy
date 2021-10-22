@@ -155,7 +155,7 @@ const UpdatePost = ({match}) => {
                 wrapperStyle={{ backgroundColor:'white', color: 'black', height: '15em', paddingBottom: '3rem', fontFamily: 'Georgia,sans-serif'}}
                 editorStyle = {{padding: '0 0.5rem'}}
                 toolbar={{
-                    options: ['inline', 'blockType', 'list', 'link'],
+                    options: ['inline', 'fontSize', 'blockType', 'list', 'link'],
                     blockType: {
                         inDropdown: false,
                         options: ['Normal','Blockquote'],
