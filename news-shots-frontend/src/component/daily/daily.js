@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {API} from '../../backend';
 
 import NavbarTop from '../Navbar';
+import ThreeDotsWave from '../animation/ThreeDotsWave';
 
 import {getDailyPosts} from './dailyAPICalls';
 import './daily.css';
@@ -29,9 +30,9 @@ export const DailyCard = ({ post }) => {
             <img className="daily-image" src={imageURL} alt=""/>
             <div className="daily-content">
                 <Link to={`/daily/${name}`}>
-                    <header className="daily-title">{title}</header>
+                    <header className="daily-title two-line-limit">{title}</header>
                 </Link>
-                <p className="daily-description">{description}</p>
+                <p className="two-line-limit">{description}</p>
             </div>
             <footer className="daily-footer">
                 <p> {date.toString().slice(3,16)} </p>
@@ -68,6 +69,7 @@ const Daily = () => {
         <div>
             <NavbarTop/>
             <div className="mt-5 daily-card-feed">
+                {posts.length==0 && <ThreeDotsWave/>}
                 {posts.map((post, index) => {
                     return (
                         <div key={index}>

@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom';
 
 import NavbarTop from '../Navbar';
 import {DailyCard} from '../daily/daily';
+import ThreeDotsWave from '../animation/ThreeDotsWave';
 
 import {getCategoryPosts} from './categoryAPICalls';
 
@@ -34,6 +35,7 @@ const Category = ({match}) => {
 
             <NavbarTop/>
             <div className="mt-5 daily-card-feed">
+                {posts.length==0 && <ThreeDotsWave/>}
                 {posts.map((post, index) => {
                     return (
                         <div key={index}>

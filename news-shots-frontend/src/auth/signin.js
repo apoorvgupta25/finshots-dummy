@@ -85,11 +85,11 @@ const Signin = () => {
                 <div className="col-md-6 offset-sm-3 text-left">
                     <form>
                         <div className="form-group">
-                            <label className="text-light">Email</label>
+                            <label>Email</label>
                             <input className="form-control" type="email" onChange={handleChange("email")} value={email}/>
                         </div>
                         <div className="form-group">
-                            <label className="text-light">Password</label>
+                            <label>Password</label>
                             <input className="form-control" type="password" onChange={handleChange("password")} value={password}/>
                         </div><br/>
                     <button className="btn btn-success btn-block" onClick={onSubmit}>Submit</button>

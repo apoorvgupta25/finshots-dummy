@@ -10,6 +10,7 @@ import draftToHtml from 'draftjs-to-html';
 
 import NavbarTop from '../Navbar';
 import NotFound from '../../NotFound.js';
+import BouncingBall from '../animation/BouncingBall';
 
 const Post = ({ match }) => {
 
@@ -37,7 +38,14 @@ const Post = ({ match }) => {
 
     // fetch gives two responses one is null
     if (isLoading){
-        return <div>Loading...</div>;
+        return (
+            <>
+                <NavbarTop/>
+                <div className="mt-5 pt-5">
+                    <BouncingBall/>;
+                </div>
+            </>
+        )
     }
 
     if(notFound){

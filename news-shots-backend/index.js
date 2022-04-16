@@ -113,7 +113,6 @@ app.post('/api/send/post', (req, res, next) => {
                      smtpTransport.close();
                 });
             })
-            .catch(err => console.log(err));
             })
 
 })

@@ -8,6 +8,7 @@ import './home.css';
 
 import NavbarTop from '../Navbar';
 import Subscribe from '../Subscribe';
+import ThreeDotsWave from '../animation/ThreeDotsWave';
 
 import { getLast3Posts, addSubscriber, confirmSubscriber } from './homeAPICalls';
 
@@ -32,9 +33,9 @@ const HomeCard= ({ post }) => {
             <div className="home-content">
                 <p> {date.toString().slice(3, 16)} </p>
                 <Link to={`/daily/${name}`}>
-                    <header className="home-title">{title}</header>
+                    <header className="home-title two-line-limit">{title}</header>
                 </Link>
-                <p className="home-description">{description}</p>
+                <p className="home-description two-line-limit">{description}</p>
             </div>
         </div>
     );
@@ -71,6 +72,7 @@ const Home = () => {
                     <div className="col-sm-8">
                         <h1 className="text-center">Recent Posts</h1>
                         <div className="pt-3 home-card-feed">
+                            {posts.length==0 && <ThreeDotsWave/>}
                             {posts.map((post, index) => {
                                 return (
                                     <div key={index}>

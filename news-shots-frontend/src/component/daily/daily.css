@@ -67,13 +67,23 @@
     font-weight: bold;
 }
 
-.daily-description{
+.two-line-limit{
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+
+.three-line-limit{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* margin-top: 0.5rem; */
 
 .daily-footer{
     display: -webkit-box;

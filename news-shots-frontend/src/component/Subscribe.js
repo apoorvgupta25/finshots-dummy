@@ -31,7 +31,7 @@ const Subscribe = ({isModal = false}) => {
                     style={{ display: success ? '' : 'none' }}
                     isOpen={success}
                     toggle={onDismiss}>
-                    Verfication Link sent to email.
+                    Verification Link sent to email.
                 </Alert>
             )
         }

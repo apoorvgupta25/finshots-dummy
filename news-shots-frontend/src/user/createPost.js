@@ -4,6 +4,7 @@ import {Link, Redirect} from 'react-router-dom';
 import {createPost} from './helper/postAPICalls';
 import {getAllCategories} from './helper/categoryAPICalls';
 import {isAuth} from '../auth/authAPICalls'
+import CircleModal from '../component/animation/CircleModal';
 
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -21,6 +22,7 @@ const CreatePost = () => {
         author: '',
         createdPost: '',
         postLink: '',
+        saving: false,
         error: '',
         formData: ''
     });
@@ -28,7 +30,7 @@ const CreatePost = () => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [redirect, setRedirect] = useState(false);
 
-    const {title, description, content, categories, category, author, createdPost, postLink, error, formData } = values;
+    const {title, description, content, categories, category, author, createdPost, postLink, saving, error, formData } = values;
     const {user, token} = isAuth();
 
     const preload = () => {
@@ -58,7 +60,7 @@ const CreatePost = () => {
     const successMessage = () => {
         return (
             <div className="alert alert-success mt-3" style={{display: createdPost ? "" : "none"}}>
-                <h4>{createdPost} created Successfully</h4>
+                <h4>{createdPost} created Successfully. Redirecting...</h4>
             </div>
         )
     }
@@ -73,11 +75,11 @@ const CreatePost = () => {
 
     const onSubmit = event => {
         event.preventDefault();
-        setValues({...values, error:"" ,loading: true});
+        setValues({...values, error:"" , saving: true});
         createPost(user._id, token, formData)
             .then(data => {
                 if(data.error){
-                    setValues({...values, error: data.error})
+                    setValues({...values, error: data.error, saving: false})
                 }
                 else{
                     setValues({...values,
@@ -87,10 +89,11 @@ const CreatePost = () => {
                         photo: "",
                         author: "",
                         category: "",
+                        saving: false,
                         createdPost: data.title,
                         postLink: data.link
                     })
-                    setTimeout(() => { setRedirect(true); }, 1000);
+                    setTimeout(() => { setRedirect(true); }, 2000);
                 }
             })
 
@@ -131,6 +134,7 @@ const CreatePost = () => {
 
     return (
         <div className="container bg-info p-4">
+            <CircleModal saving={saving} />
             <h1 className="text-white text-center">Add new Post</h1>
             {goBack()}
 

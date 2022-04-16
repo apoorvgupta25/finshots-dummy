@@ -4,9 +4,12 @@ import {API} from '../backend';
 import {isAuth} from '../auth/authAPICalls'
 import {getAllPosts, deletePost} from './helper/postAPICalls';
 
+import ThreeDotsWave from '../component/animation/ThreeDotsWave';
+
 const ManagePosts = () => {
 
     const [posts, setPosts] = useState([])
+    const [loading, setLoading] = useState(true)
 
     const {user, token} = isAuth();
 
@@ -19,6 +22,7 @@ const ManagePosts = () => {
             else {
                 setPosts(data);
             }
+            setLoading(false);
         })
     }
 
@@ -27,6 +31,7 @@ const ManagePosts = () => {
     }, []);
 
     const deleteThisPost = postName => {
+        setLoading(true);
         deletePost(postName, user._id, token)
         .then(data => {
             if(data.error){
@@ -62,6 +67,7 @@ const ManagePosts = () => {
             <br/>
 
             <div className="col-12">
+                {loading && <ThreeDotsWave/>}
                 {posts.map((post, index) => {
                     return (
                         (
