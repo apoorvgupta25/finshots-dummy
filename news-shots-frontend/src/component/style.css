@@ -7,9 +7,16 @@
 
 
 */
+@font-face{
+    font-family: 'SFUI';
+    src: url('../assets/font/Poppins-Regular.ttf') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 body {
-    font-family: 'Inter';
+    font-family: 'SFUI';
     background-color: #E3E2DF;
 }
 
