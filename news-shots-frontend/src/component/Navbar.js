@@ -13,8 +13,6 @@ import {
     Modal,
     ModalHeader,
     ModalBody,
-    ModalFooter,
-    Alert,
 } from 'reactstrap';
 import {Link, withRouter} from 'react-router-dom';
 

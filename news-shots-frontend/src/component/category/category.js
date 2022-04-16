@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {Link, withRouter} from 'react-router-dom';
 
 import NavbarTop from '../Navbar';
 import {DailyCard} from '../daily/daily';
@@ -9,24 +8,23 @@ import {getCategoryPosts} from './categoryAPICalls';
 
 const Category = ({match}) => {
 
-    const [error, setError] = useState(false);
     const [posts, setPosts] = useState([]);
     const [reload, setReload] = useState(false);
 
-    const loadAllPosts = categoryName => {
-        getCategoryPosts(categoryName)
-        .then(data => {
-            if (data.error) {
-                setError(data.error);
-                console.log(error);
-            } else {
-                setReload(!reload);
-                setPosts(data);
-            }
-        })
-    };
 
     useEffect(() => {
+        const loadAllPosts = categoryName => {
+            getCategoryPosts(categoryName)
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    setReload(!reload);
+                    setPosts(data);
+                }
+            })
+        };
+
         loadAllPosts(match.params.categoryName)
     },[reload])
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 
 import notfound from './notfound.svg';
@@ -6,7 +6,7 @@ import notfound from './notfound.svg';
 const NotFound = () => {
     return (
         <div className="text-white ">
-            <img src={notfound} style={imgStyle} className=""/><br/><br/>
+            <img src={notfound} style={imgStyle} alt=""/><br/><br/>
 
             <div className="d-flex justify-content-center">
                 <h2 style={errorStyle}>404 ERROR</h2>

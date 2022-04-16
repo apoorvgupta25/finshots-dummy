@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link, withRouter} from 'react-router-dom';
-import { Alert } from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 import {API} from '../../backend';
 
@@ -10,7 +9,7 @@ import NavbarTop from '../Navbar';
 import Subscribe from '../Subscribe';
 import ThreeDotsWave from '../animation/ThreeDotsWave';
 
-import { getLast3Posts, addSubscriber, confirmSubscriber } from './homeAPICalls';
+import { getLast3Posts } from './homeAPICalls';
 
 const HomeCard= ({ post }) => {
 
@@ -44,22 +43,20 @@ const HomeCard= ({ post }) => {
 const Home = () => {
 
     const [posts, setPosts] = useState([]);
-    const [error, setError] = useState(false);
-
-    const loadAllPosts = () => {
-        getLast3Posts()
-        .then(data => {
-            if (data.error) {
-                setError(data.error);
-                console.log(error);
-            } else {
-                setPosts(data);
-            }
-        })
-    };
 
     useEffect(() => {
+        const loadAllPosts = () => {
+            getLast3Posts()
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    setPosts(data);
+                }
+            })
+        };
         loadAllPosts()
+
     },[])
 
     return (

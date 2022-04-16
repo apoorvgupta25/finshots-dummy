@@ -1,5 +1,4 @@
 import { motion } from "framer-motion/dist/framer-motion";
-import { Modal, ModalBody, Alert } from 'reactstrap';
 
 const loadingContainer = {
     width: "2rem",

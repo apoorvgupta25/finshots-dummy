@@ -27,7 +27,7 @@ const CreatePost = () => {
         formData: ''
     });
 
-    const [editorState, setEditorState] = useState(EditorState.createEmpty());
+    // const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [redirect, setRedirect] = useState(false);
 
     const {title, description, content, categories, category, author, createdPost, postLink, saving, error, formData } = values;

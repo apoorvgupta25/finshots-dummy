@@ -1,12 +1,5 @@
-import {React, useState, useEffect} from 'react';
-import {
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    Alert,
-} from 'reactstrap';
-import {Link, withRouter} from 'react-router-dom';
+import {React, useState} from 'react';
+import { Alert } from 'reactstrap';
 
 import {confirmSubscriber} from './home/homeAPICalls';
 

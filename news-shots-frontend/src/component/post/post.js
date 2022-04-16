@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import {API} from '../../backend';
 
@@ -76,7 +76,7 @@ const Post = ({ match }) => {
                 </div>
 
                 <div className={styles.title}>{title}</div>
-                <img className={styles.image} src={imageURL}/>
+                <img className={styles.image} src={imageURL} alt=""/>
 
                 <div className={styles.content}>
                     <div className={styles.description}>{description} </div>

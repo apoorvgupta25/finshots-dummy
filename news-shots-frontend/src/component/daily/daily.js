@@ -46,21 +46,19 @@ export const DailyCard = ({ post }) => {
 const Daily = () => {
 
     const [posts, setPosts] = useState([]);
-    const [error, setError] = useState(false);
-
-    const loadAllPosts = () => {
-        getDailyPosts()
-        .then(data => {
-            if (data.error) {
-                setError(data.error);
-                console.log(error);
-            } else {
-                setPosts(data);
-            }
-        })
-    };
 
     useEffect(() => {
+        const loadAllPosts = () => {
+            getDailyPosts()
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    setPosts(data);
+                }
+            })
+        };
+
         loadAllPosts()
     },[])
 
