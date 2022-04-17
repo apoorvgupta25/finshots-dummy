@@ -195,3 +195,54 @@ exports.getAllCategoryPosts = (req, res) => {
         res.json(posts);
     });
 };
+
+exports.getPostCount = (req, res) => {
+    Post.countDocuments({}, function(err, count){
+        if(err){
+            return res.status(400).json({
+                error: "Error in Counting Posts"
+            });
+        }
+        res.json(count);
+    });
+}
+
+exports.getPostsByIndex = (req, res) => {
+    let limit = req.query.limit ? parseInt(req.query.limit) : 1000000;
+    let skip = req.query.skip ? parseInt(req.query.skip) : 0;
+
+    Post.find({}, {createdAt: 1, title:1, description:1, link:1})
+        .populate('category')
+        .populate("author", "_id name")
+        .sort([['createdAt', 'descending']])
+        .skip(skip)
+        .limit(limit)
+        .exec((err, posts) => {
+        if(err){
+            return res.status(400).json({
+                error: "No Post was Found"
+            });
+        }
+        res.json(posts);
+    })
+}
+
+// used only for backward or forward pagination, not for any specific page
+// https://stackoverflow.com/a/7230040/12685377
+exports.getPostsByCreated = (req, res) => {
+
+    let limit = req.query.limit ? parseInt(req.query.limit) : 1000000;
+    let last_result_date = req.query.last_result_date ? req.query.last_result_date : new Date();
+
+    Post.find({createdAt : { $lt : last_result_date }}, {createdAt: 1, title:1, description:1, link:1})
+        .sort({createdAt:-1})
+        .limit(10)
+        .exec((err, posts) => {
+        if(err){
+            return res.status(400).json({
+                error: "No Post was Found"
+            });
+        }
+        res.json(posts)
+    });
+}

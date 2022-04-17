@@ -23,6 +23,23 @@ export const getAllPosts = () => {
     .catch(err => console.log(err));
 };
 
+export const getPostsCount = () => {
+    return fetch(`${API}/count/daily`, { method: "GET" })
+    .then(response => {
+        return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
+export const getPostsByIndex = (s, l) => {
+    return fetch(`${API}/index/daily?skip=${s}&limit=${l}`, { method: "GET" })
+    .then(response => {
+        return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
+
 export const getPost = postName => {
     return fetch(`${API}/daily/${postName}`, { method: "GET" })
     .then(response =>{

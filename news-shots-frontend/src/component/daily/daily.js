@@ -4,9 +4,10 @@ import {Link} from 'react-router-dom';
 import {API} from '../../backend';
 
 import NavbarTop from '../Navbar';
+import NotFound from '../../NotFound.js';
 import ThreeDotsWave from '../animation/ThreeDotsWave';
 
-import {getDailyPosts} from './dailyAPICalls';
+import {getDailyPosts, getPostsCount, getPostsByIndex, getPostsByCreated} from './dailyAPICalls';
 import './daily.css';
 
 export const DailyCard = ({ post }) => {
@@ -43,9 +44,16 @@ export const DailyCard = ({ post }) => {
     );
 }
 
-const Daily = () => {
+const Daily = ({match}) => {
 
     const [posts, setPosts] = useState([]);
+    const [numberOfPages, setNumberOfPages] = useState([]);
+    const [totalPosts, setTotalPosts] = useState(0)
+    const [loading, setLoading] = useState(true);
+    const perPageItems = 8;
+
+    if(match.params.page==undefined)
+        match.params.page=1;
 
     useEffect(() => {
         const loadAllPosts = () => {
@@ -59,15 +67,59 @@ const Daily = () => {
             })
         };
 
-        loadAllPosts()
-    },[])
+        const loadCreatePosts = (a, b) => {
+            getPostsByCreated(a, b)
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    setPosts(data);
+                }
+                setLoading(false);
+            })
+        };
+
+        // loadAllPosts()
+        // loadCreatePosts(new Date(), perPageItems)
+
+        const totalPost = () => {
+            getPostsCount()
+            .then(data => {
+                setTotalPosts(data)
+                setNumberOfPages(Math.ceil(data/perPageItems))
+            })
+        }
+
+        const loadIndexPosts = (a, b) => {
+            getPostsByIndex(a, b)
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    setPosts(data);
+                }
+                setLoading(false);
+            })
+        };
+
+
+        totalPost()
+        var n = parseInt(match.params.page)-1;
+        var startIdx = n*perPageItems;
+        loadIndexPosts(startIdx, perPageItems)
+
+    },[loading])
+
+    if((typeof numberOfPages == 'number') && (parseInt(match.params.page) > numberOfPages)){
+        return <NotFound/>;
+    }
 
     return (
 
         <div>
             <NavbarTop/>
             <div className="mt-5 daily-card-feed">
-                {posts.length==0 && <ThreeDotsWave/>}
+                {loading && <ThreeDotsWave/>}
                 {posts.map((post, index) => {
                     return (
                         <div key={index}>
@@ -76,6 +128,25 @@ const Daily = () => {
                     )
                 })}
             </div>
+
+            <div className="text-center h4"> {`Showing ${(match.params.page-1)*perPageItems+1}-${Math.min(totalPosts, match.params.page*perPageItems)} Posts`} </div>
+
+            {match.params.page!=1 &&
+                <div className="h4 pb-5 pull-left ml-5">
+                    {match.params.page &&
+                        <Link to={`${parseInt(match.params.page)-1}`} onClick={() => {setLoading(true); setPosts([])}}>Newer Post </Link>}
+                </div>
+            }
+
+            {(typeof numberOfPages == 'number') && (parseInt(match.params.page)+1 <= numberOfPages) &&
+                <div className="h4 pb-5 pull-right mr-5">
+                    {match.params.page==1 &&
+                        <Link to={`/daily/page/2`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
+                    {match.params.page!=1 &&
+                        <Link to={`${parseInt(match.params.page)+1}`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
+                </div>
+            }
+
         </div>
     )
 

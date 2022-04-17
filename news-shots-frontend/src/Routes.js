@@ -28,6 +28,7 @@ export default function Routes(){
             <Switch>
                 <Route path="/" exact component={Home}/>
                 <Route path="/daily" exact component={Daily}/>
+                <Route path="/daily/page/:page?" exact component={Daily}/>
                 <Route path="/daily/:postName" exact component={Post}/>
                 <Route path="/tag/:categoryName" exact component={Category}/>
 
@@ -41,6 +42,7 @@ export default function Routes(){
 
                 <PrivateRoute path="/create/post" exact component={CreatePost}/>
                 <PrivateRoute path="/manage/posts" exact component={ManagePosts}/>
+                <PrivateRoute path="/manage/posts/page/:page?" exact component={ManagePosts}/>
                 <PrivateRoute path="/update/post/:postName" exact component={UpdatePost}/>
 
                 <Route component = {NotFound}/>
