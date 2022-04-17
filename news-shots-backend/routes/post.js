@@ -3,7 +3,7 @@ const router = express.Router()
 
 const {getPostByLink, createPost, getPost, photo, updatePost, deletePost,
         getAllPosts, getAllUniqueCategories, getAllCategoryPosts,
-        getPostCount, getPostsByIndex, getPostsByCreated} = require('../controllers/post')
+        getPostCount, getPostsByIndex, getPostsByCreated, getCategoryPostCount, getCategoryPostsByIndex} = require('../controllers/post')
 const {getUserById} = require('../controllers/user')
 const {getCategoryByName} = require('../controllers/category')
 const {isSignedIn, isAuthenticated} = require('../controllers/auth')
@@ -28,5 +28,7 @@ router.get('/created/daily', getPostsByCreated);
 
 router.get('/unique/categories', getAllUniqueCategories);
 router.get('/daily/category/:categoryName', getAllCategoryPosts);
+router.get('/count/category/:categoryName', getCategoryPostCount);
+router.get('/index/category/:categoryName', getCategoryPostsByIndex);
 
 module.exports = router;

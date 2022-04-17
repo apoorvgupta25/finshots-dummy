@@ -196,6 +196,38 @@ exports.getAllCategoryPosts = (req, res) => {
     });
 };
 
+exports.getCategoryPostCount = (req, res) => {
+    Post.find({ "category": req.category._id} )
+        .countDocuments({}, function(err, count){
+        if(err){
+            return res.status(400).json({
+                error: "Error in Counting Posts"
+            });
+        }
+        res.json(count);
+    });
+}
+
+exports.getCategoryPostsByIndex = (req, res) => {
+    let limit = req.query.limit ? parseInt(req.query.limit) : 1000000;
+    let skip = req.query.skip ? parseInt(req.query.skip) : 0;
+
+    Post.find({ 'category': req.category._id}, {createdAt: 1, title:1, description:1, link:1})
+        .populate('category')
+        .populate("author", "_id name")
+        .sort([['createdAt', 'descending']])
+        .skip(skip)
+        .limit(limit)
+        .exec((err, posts) => {
+        if(err){
+            return res.status(400).json({
+                error: "No Post was Found"
+            });
+        }
+        res.json(posts);
+    })
+}
+
 exports.getPostCount = (req, res) => {
     Post.countDocuments({}, function(err, count){
         if(err){

@@ -31,6 +31,7 @@ export default function Routes(){
                 <Route path="/daily/page/:page?" exact component={Daily}/>
                 <Route path="/daily/:postName" exact component={Post}/>
                 <Route path="/tag/:categoryName" exact component={Category}/>
+                <Route path="/tag/:categoryName/page/:page?" exact component={Category}/>
 
                 <Route path="/signin" exact component={Signin}/>
 
