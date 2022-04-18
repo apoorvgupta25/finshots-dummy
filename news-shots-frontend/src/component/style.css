@@ -50,6 +50,15 @@ body {
     cursor: pointer;
 }
 
+.link{
+    color: grey;
+}
+.link:hover {
+    text-decoration: none;
+    color: black;
+}
+
+
 
 /* For Mobile */
 @media screen and (max-width: 540px) {

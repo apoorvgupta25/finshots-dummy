@@ -130,22 +130,30 @@ const Daily = ({match}) => {
             </div>
 
             <div className="text-center h4"> {`Showing ${(match.params.page-1)*perPageItems+1}-${Math.min(totalPosts, match.params.page*perPageItems)} Posts`} </div>
+            <div className="footer-container">
 
-            {match.params.page!=1 &&
                 <div className="h4 pb-5 pull-left ml-5">
-                    {match.params.page &&
-                        <Link to={`${parseInt(match.params.page)-1}`} onClick={() => {setLoading(true); setPosts([])}}>Newer Post </Link>}
-                </div>
-            }
-
-            {(typeof numberOfPages == 'number') && (parseInt(match.params.page)+1 <= numberOfPages) &&
-                <div className="h4 pb-5 pull-right mr-5">
-                    {match.params.page==1 &&
-                        <Link to={`/daily/page/2`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
                     {match.params.page!=1 &&
-                        <Link to={`${parseInt(match.params.page)+1}`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
+                        <Link to={`${parseInt(match.params.page)-1}`} onClick={() => {setLoading(true); setPosts([])}} className="link">Newer Post </Link>
+                    }
                 </div>
-            }
+
+                <div className="text-center h4" style={{whiteSpace:"nowrap"}}>
+                    {(() => {
+                        const options = [];
+                        for (let i = 1; i <= numberOfPages; i++) {
+                          options.push(<Link to={`/daily/page/${i}`} onClick={() => {setLoading(true); setPosts([])}} className="link" value={i}>{i}&nbsp;</Link>);
+                        }
+                        return options;
+                   })()}
+                </div>
+
+                <div className="h4 pb-5 pull-right mr-5">
+                    {(typeof numberOfPages == 'number') && (parseInt(match.params.page)+1 <= numberOfPages) &&
+                        <Link to={`/daily/page/${parseInt(match.params.page)+1}`} onClick={() => {setLoading(true); setPosts([])}} className="link">Older Post</Link>
+                    }
+                </div>
+            </div>
 
         </div>
     )
