@@ -2,7 +2,7 @@ import { motion } from "framer-motion/dist/framer-motion";
 
 const loadingContainer = {
     width: "2rem",
-    height: "100vh",
+    height: "10vh",
     display: "flex",
     textAlign: "center",
     margin: "0 auto",
