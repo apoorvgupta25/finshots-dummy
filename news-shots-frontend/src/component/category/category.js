@@ -24,12 +24,8 @@ const Category = ({match}) => {
         const loadAllPosts = categoryName => {
             getCategoryPosts(categoryName)
             .then(data => {
-                if (data.error) {
-                    console.log(data.error);
-                } else {
-                    setReload(!reload);
-                    setPosts(data);
-                }
+                setReload(!reload);
+                setPosts(data);
             })
         };
 

@@ -93,11 +93,7 @@ const Daily = ({match}) => {
         const loadIndexPosts = (a, b) => {
             getPostsByIndex(a, b)
             .then(data => {
-                if (data.error) {
-                    console.log(data.error);
-                } else {
-                    setPosts(data);
-                }
+                setPosts(data);
                 setLoading(false);
             })
         };

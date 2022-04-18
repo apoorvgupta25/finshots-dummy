@@ -48,11 +48,7 @@ const Home = () => {
         const loadAllPosts = () => {
             getLast3Posts()
             .then(data => {
-                if (data.error) {
-                    console.log(data.error);
-                } else {
-                    setPosts(data);
-                }
+                setPosts(data);
             })
         };
         loadAllPosts()
