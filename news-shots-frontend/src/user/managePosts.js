@@ -8,6 +8,9 @@ import NotFound from '../NotFound.js';
 
 import ThreeDotsWave from '../component/animation/ThreeDotsWave';
 
+import nextImg from '../assets/next.svg';
+import previousImg from '../assets/previous.svg';
+
 const ManagePosts = () => {
 
     const [posts, setPosts] = useState([])
@@ -149,16 +152,14 @@ const ManagePosts = () => {
             {page!=1 &&
                 <div className="h4 pb-2 pull-left ml-5 mt-5">
                     {page &&
-                        <Link to={`${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}}>Newer Post </Link>}
+                        <Link to={`/manage/posts/page/${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}}><img src={previousImg} alt="Previous" style={{width:"30px"}}/> </Link>}
                 </div>
             }
 
             {(typeof numberOfPages == 'number') && (parseInt(page)+1 <= numberOfPages) &&
                 <div className="h4 pb-2 pull-right mr-5 mt-5">
-                    {page==1 &&
-                        <Link to={`/manage/posts/page/2`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
-                    {page!=1 &&
-                        <Link to={`${parseInt(page)+1}`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
+                    {page &&
+                        <Link to={`/manage/posts/page/${parseInt(page)+1}`} onClick={() => {setLoading(true); setPosts([])}}><img src={nextImg} alt="Next" style={{width:"30px"}}/></Link>}
                 </div>
             }
         </div>

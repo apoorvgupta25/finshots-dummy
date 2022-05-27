@@ -7,6 +7,9 @@ import NavbarTop from '../Navbar';
 import NotFound from '../../NotFound.js';
 import ThreeDotsWave from '../animation/ThreeDotsWave';
 
+import nextImg from '../../assets/next.svg';
+import previousImg from '../../assets/previous.svg';
+
 import {getDailyPosts, getPostsCount, getPostsByIndex, getPostsByCreated} from './dailyAPICalls';
 import './daily.css';
 
@@ -132,15 +135,16 @@ const Daily = () => {
 
                 <div className="h4 pb-5 pull-left ml-5">
                     {page!=1 &&
-                        <Link to={`${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}} className="link">Newer Post </Link>
+                        <Link to={`/daily/page/${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}} className="link pull-right mr-2"><img src={previousImg} alt="Previous" style={{width:"30px"}}/></Link>
                     }
                 </div>
 
                 <div className="text-center h4" style={{whiteSpace:"nowrap"}}>
                     {(() => {
                         const options = [];
+
                         for (let i = 1; i <= numberOfPages; i++) {
-                          options.push(<Link to={`/daily/page/${i}`} onClick={() => {setLoading(true); setPosts([])}} className="link" value={i}>{i}&nbsp;</Link>);
+                          options.push(<Link to={`/daily/page/${i}`} onClick={() => {setLoading(true); setPosts([])}} className="link" style={{color: parseInt(page)===i ? 'black' : ''}} value={i}>{i}&nbsp;</Link>);
                         }
                         return options;
                    })()}
@@ -148,7 +152,7 @@ const Daily = () => {
 
                 <div className="h4 pb-5 pull-right mr-5">
                     {(typeof numberOfPages == 'number') && (parseInt(page)+1 <= numberOfPages) &&
-                        <Link to={`/daily/page/${parseInt(page)+1}`} onClick={() => {setLoading(true); setPosts([])}} className="link">Older Post</Link>
+                        <Link to={`/daily/page/${parseInt(page)+1}`} onClick={() => {setLoading(true); setPosts([])}} className="link"><img src={nextImg} alt="Next" style={{width:"30px"}}/></Link>
                     }
                 </div>
             </div>
