@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 
 import {createPost} from './helper/postAPICalls';
 import {getAllCategories} from './helper/categoryAPICalls';
@@ -101,7 +101,7 @@ const CreatePost = () => {
 
     // Redirect
     if(redirect){
-        return <Redirect to={`../daily/${postLink}`}/>
+        return <Navigate to={`../daily/${postLink}`}/>
     }
 
     const goBack = () => (

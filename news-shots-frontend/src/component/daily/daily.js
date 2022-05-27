@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 
 import {API} from '../../backend';
 
@@ -44,16 +44,17 @@ export const DailyCard = ({ post }) => {
     );
 }
 
-const Daily = ({match}) => {
-
+const Daily = () => {
     const [posts, setPosts] = useState([]);
     const [numberOfPages, setNumberOfPages] = useState([]);
     const [totalPosts, setTotalPosts] = useState(0)
     const [loading, setLoading] = useState(true);
     const perPageItems = 8;
 
-    if(match.params.page==undefined)
-        match.params.page=1;
+    var {page} = useParams();
+
+    if(page==undefined)
+        page=1;
 
     useEffect(() => {
         const loadAllPosts = () => {
@@ -100,13 +101,13 @@ const Daily = ({match}) => {
 
 
         totalPost()
-        var n = parseInt(match.params.page)-1;
+        var n = parseInt(page)-1;
         var startIdx = n*perPageItems;
         loadIndexPosts(startIdx, perPageItems)
 
     },[loading])
 
-    if((typeof numberOfPages == 'number') && (parseInt(match.params.page) > numberOfPages)){
+    if((typeof numberOfPages == 'number') && (parseInt(page) > numberOfPages)){
         return <NotFound/>;
     }
 
@@ -125,12 +126,13 @@ const Daily = ({match}) => {
                 })}
             </div>
 
-            <div className="text-center h4"> {`Showing ${(match.params.page-1)*perPageItems+1}-${Math.min(totalPosts, match.params.page*perPageItems)} Posts`} </div>
+
+            <div className="text-center h4"> {`Showing ${(page-1)*perPageItems+1}-${Math.min(totalPosts, page*perPageItems)} Posts`} </div>
             <div className="footer-container">
 
                 <div className="h4 pb-5 pull-left ml-5">
-                    {match.params.page!=1 &&
-                        <Link to={`${parseInt(match.params.page)-1}`} onClick={() => {setLoading(true); setPosts([])}} className="link">Newer Post </Link>
+                    {page!=1 &&
+                        <Link to={`${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}} className="link">Newer Post </Link>
                     }
                 </div>
 
@@ -145,8 +147,8 @@ const Daily = ({match}) => {
                 </div>
 
                 <div className="h4 pb-5 pull-right mr-5">
-                    {(typeof numberOfPages == 'number') && (parseInt(match.params.page)+1 <= numberOfPages) &&
-                        <Link to={`/daily/page/${parseInt(match.params.page)+1}`} onClick={() => {setLoading(true); setPosts([])}} className="link">Older Post</Link>
+                    {(typeof numberOfPages == 'number') && (parseInt(page)+1 <= numberOfPages) &&
+                        <Link to={`/daily/page/${parseInt(page)+1}`} onClick={() => {setLoading(true); setPosts([])}} className="link">Older Post</Link>
                     }
                 </div>
             </div>

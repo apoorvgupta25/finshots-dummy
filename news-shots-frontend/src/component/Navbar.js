@@ -14,7 +14,7 @@ import {
     ModalHeader,
     ModalBody,
 } from 'reactstrap';
-import {Link, withRouter} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import {getAllUniqueCategories} from '../user/helper/categoryAPICalls';
 import Subscribe from './Subscribe'
@@ -112,4 +112,4 @@ const NavbarTop = () => {
     );
 }
 
-export default withRouter(NavbarTop);
+export default NavbarTop;

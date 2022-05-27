@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {API} from '../backend';
 import {isAuth} from '../auth/authAPICalls'
 import {getAllPosts, deletePost, getPostsCount, getPostsByIndex} from './helper/postAPICalls';
@@ -8,7 +8,7 @@ import NotFound from '../NotFound.js';
 
 import ThreeDotsWave from '../component/animation/ThreeDotsWave';
 
-const ManagePosts = ({match}) => {
+const ManagePosts = () => {
 
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
@@ -18,8 +18,10 @@ const ManagePosts = ({match}) => {
 
     const {user, token} = isAuth();
 
-    if(match.params.page==undefined)
-        match.params.page=1;
+    var {page} = useParams();
+
+    if(page==undefined)
+        page=1;
 
     const preload = () => {
         getAllPosts()
@@ -58,14 +60,14 @@ const ManagePosts = ({match}) => {
         };
 
         totalPost()
-        var n = parseInt(match.params.page)-1;
+        var n = parseInt(page)-1;
         var startIdx = n*perPageItems;
         loadIndexPosts(startIdx, perPageItems)
 
     }, [!loading]);
 
     console.log(totalPosts);
-    if((typeof numberOfPages == 'number') && (parseInt(match.params.page) > numberOfPages)){
+    if((typeof numberOfPages == 'number') && (parseInt(page) > numberOfPages)){
         return <NotFound/>;
     }
 
@@ -92,7 +94,7 @@ const ManagePosts = ({match}) => {
         <div>
             {goBack()}
 
-            <div className="text-center h2"> {`Showing ${(match.params.page-1)*perPageItems+1}-${match.params.page*perPageItems} of ${totalPosts} Posts`} </div>
+            <div className="text-center h2"> {`Showing ${(page-1)*perPageItems+1}-${page*perPageItems} of ${totalPosts} Posts`} </div>
             <div className="row ml-1 pt-4">
                 <div className="col-2"><h3>Date</h3></div>
                 <div className="col-2"><h3>Image</h3></div>
@@ -144,19 +146,19 @@ const ManagePosts = ({match}) => {
                     )
                 })}
             </div>
-            {match.params.page!=1 &&
+            {page!=1 &&
                 <div className="h4 pb-2 pull-left ml-5 mt-5">
-                    {match.params.page &&
-                        <Link to={`${parseInt(match.params.page)-1}`} onClick={() => {setLoading(true); setPosts([])}}>Newer Post </Link>}
+                    {page &&
+                        <Link to={`${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}}>Newer Post </Link>}
                 </div>
             }
 
-            {(typeof numberOfPages == 'number') && (parseInt(match.params.page)+1 <= numberOfPages) &&
+            {(typeof numberOfPages == 'number') && (parseInt(page)+1 <= numberOfPages) &&
                 <div className="h4 pb-2 pull-right mr-5 mt-5">
-                    {match.params.page==1 &&
+                    {page==1 &&
                         <Link to={`/manage/posts/page/2`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
-                    {match.params.page!=1 &&
-                        <Link to={`${parseInt(match.params.page)+1}`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
+                    {page!=1 &&
+                        <Link to={`${parseInt(page)+1}`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
                 </div>
             }
         </div>

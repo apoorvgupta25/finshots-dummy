@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 
 import NavbarTop from '../Navbar';
 import NotFound from '../../NotFound.js';
@@ -8,7 +8,7 @@ import ThreeDotsWave from '../animation/ThreeDotsWave';
 
 import {getCategoryPosts, getCategoryPostsCount, getCategoryPostsByIndex} from './categoryAPICalls';
 
-const Category = ({match}) => {
+const Category = () => {
 
     const [posts, setPosts] = useState([]);
     const [reload, setReload] = useState(false);
@@ -17,8 +17,10 @@ const Category = ({match}) => {
     const [loading, setLoading] = useState(true);
     const perPageItems = 4;
 
-    if(match.params.page==undefined)
-        match.params.page=1;
+    var {page, categoryName} = useParams();
+
+    if(page==undefined)
+        page=1;
 
     useEffect(() => {
         const loadAllPosts = categoryName => {
@@ -29,7 +31,7 @@ const Category = ({match}) => {
             })
         };
 
-        // loadAllPosts(match.params.categoryName)
+        // loadAllPosts(categoryName)
 
         const totalCategoryPost = categoryName => {
             getCategoryPostsCount(categoryName)
@@ -53,15 +55,15 @@ const Category = ({match}) => {
         };
 
 
-        totalCategoryPost(match.params.categoryName)
-        var n = parseInt(match.params.page)-1;
+        totalCategoryPost(categoryName)
+        var n = parseInt(page)-1;
         var startIdx = n*perPageItems;
-        loadIndexCategoryPosts(match.params.categoryName, startIdx, perPageItems)
+        loadIndexCategoryPosts(categoryName, startIdx, perPageItems)
 
     },[!reload, !loading])
 
 
-    if((typeof numberOfPages == 'number') && (parseInt(match.params.page) > numberOfPages)){
+    if((typeof numberOfPages == 'number') && (parseInt(page) > numberOfPages)){
         return <NotFound/>;
     }
 
@@ -80,21 +82,21 @@ const Category = ({match}) => {
                 })}
             </div>
 
-            <div className="text-center h4"> {`Showing ${(match.params.page-1)*perPageItems+1}-${Math.min(totalPosts, match.params.page*perPageItems)} Posts`} </div>
+            <div className="text-center h4"> {`Showing ${(page-1)*perPageItems+1}-${Math.min(totalPosts, page*perPageItems)} Posts`} </div>
 
-            {match.params.page!=1 &&
+            {page!=1 &&
                 <div className="h4 pb-5 pull-left ml-5">
-                    {match.params.page &&
-                        <Link to={`${parseInt(match.params.page)-1}`} onClick={() => {setLoading(true); setPosts([])}}>Newer Post </Link>}
+                    {page &&
+                        <Link to={`${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}}>Newer Post </Link>}
                 </div>
             }
 
-            {(typeof numberOfPages == 'number') && (parseInt(match.params.page)+1 <= numberOfPages) &&
+            {(typeof numberOfPages == 'number') && (parseInt(page)+1 <= numberOfPages) &&
                 <div className="h4 pb-5 pull-right mr-5">
-                    {match.params.page==1 &&
-                        <Link to={`${match.params.categoryName}/page/2`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
-                    {match.params.page!=1 &&
-                        <Link to={`${parseInt(match.params.page)+1}`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
+                    {page==1 &&
+                        <Link to={`${categoryName}/page/2`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
+                    {page!=1 &&
+                        <Link to={`${parseInt(page)+1}`} onClick={() => {setLoading(true); setPosts([])}}>Older Post -></Link>}
                 </div>
             }
         </div>

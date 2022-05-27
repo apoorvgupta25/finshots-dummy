@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link, Navigate, useParams} from 'react-router-dom';
 
 import {updatePost, getPost} from './helper/postAPICalls';
 import {isAuth} from '../auth/authAPICalls'
@@ -11,7 +11,10 @@ import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 
 const editorStateAsJSONString = {"entityMap":{},"blocks":[{"key":"637gr","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
 
-const UpdatePost = ({match}) => {
+const UpdatePost = () => {
+
+    const {postName} = useParams();
+
 
     const [values, setValues] = useState({
         title: '',
@@ -96,14 +99,14 @@ const UpdatePost = ({match}) => {
     }
 
     useEffect(() => {
-        preload(match.params.postName);
+        preload(postName);
     }, [])
 
 
     const onSubmit = event => {
         event.preventDefault();
         setValues({...values, error:"" ,loading: true});
-        updatePost(match.params.postName, user._id, token, formData)
+        updatePost(postName, user._id, token, formData)
             .then(data => {
                 if(data.error){
                     setValues({...values, error: data.error})
@@ -129,7 +132,7 @@ const UpdatePost = ({match}) => {
 
     // Redirect
     if(redirect){
-        return <Redirect to={`/manage/posts`}/>
+        return <Navigate to={`/manage/posts`}/>
     }
 
     const goBack = () => (

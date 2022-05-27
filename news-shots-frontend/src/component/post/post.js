@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 
 import {API} from '../../backend';
 
@@ -12,7 +12,9 @@ import NavbarTop from '../Navbar';
 import NotFound from '../../NotFound.js';
 import BouncingBall from '../animation/BouncingBall';
 
-const Post = ({ match }) => {
+const Post = () => {
+
+    const { postName } = useParams();
 
     const [post, setPost] = useState([]);
     const [isLoading, setLoading] = useState(true);
@@ -33,7 +35,7 @@ const Post = ({ match }) => {
     };
 
     useEffect(() => {
-        loadPost(match.params.postName);
+        loadPost(postName);
     },[])
 
     // fetch gives two responses one is null

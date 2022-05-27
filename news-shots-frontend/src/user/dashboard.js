@@ -6,7 +6,7 @@ import {isAuth} from '../auth/authAPICalls';
 
 import './dashboard.css';
 
-const Dashboard = ({ match }) => {
+const Dashboard = () => {
 
     const signoutUser = () => {
         signout()

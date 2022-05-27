@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 
 import {isAuth} from '../auth/authAPICalls';
 import {updateCategory, getCategory} from './helper/categoryAPICalls';
 
-const UpdateCategory = ({match}) => {
+const UpdateCategory = () => {
+
+    const {categoryName} = useParams();
 
     const [name, setName] = useState("");
     const [error, setError] = useState(false);
@@ -44,14 +46,14 @@ const UpdateCategory = ({match}) => {
     }
 
     useEffect(() => {
-        preload(match.params.categoryName);
+        preload(categoryName);
     }, [])
 
     const onSubmit = event => {
         event.preventDefault();
         setError("");
         setSuccess(false);
-        updateCategory(match.params.categoryName, user._id, token, {name})
+        updateCategory(categoryName, user._id, token, {name})
         .then(data => {
             if(data.error){
                 setError(true)

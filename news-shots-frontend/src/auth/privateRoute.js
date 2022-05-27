@@ -1,26 +1,10 @@
 import React from 'react';
-import {Route, Redirect} from 'react-router-dom';
+import {Route, Navigate} from 'react-router-dom';
 
 import {isAuth} from './authAPICalls';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        isAuth() ? (
-            <Component {...props}/>
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/signin",
-              state: { from: props.location }
-            }}
-          />
-        )
-      }
-    />
-  );
+const PrivateRoute = ({ children }) => {
+    return isAuth() ? children : <Navigate to='/signin' />;
 }
 
 export default PrivateRoute;

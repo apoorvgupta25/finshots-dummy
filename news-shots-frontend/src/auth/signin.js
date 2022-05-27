@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Redirect} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 
 import {signin, authenticate, isAuth} from './authAPICalls';
 
@@ -23,7 +23,7 @@ const Signin = () => {
 
     const performRedirect = () => {
         if(didRedirect || isAuth()){
-            return <Redirect to={`/dashboard/${user._id}`}/>
+            return <Navigate to={`/dashboard/${user._id}`}/>
         }
     }
 
