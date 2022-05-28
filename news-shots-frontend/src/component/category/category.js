@@ -9,7 +9,6 @@ import ThreeDotsWave from '../animation/ThreeDotsWave';
 import nextImg from '../../assets/next.svg';
 import previousImg from '../../assets/previous.svg';
 
-// import '../daily/daily.css';
 import {getCategoryPosts, getCategoryPostsCount, getCategoryPostsByIndex} from './categoryAPICalls';
 
 const Category = () => {
@@ -74,6 +73,8 @@ const Category = () => {
     return (
         <div >
             <NavbarTop/>
+            <div className="mt-4 text-center h1 font-weight-bold">  {categoryName} </div>
+            
             <div className="mt-5 daily-card-feed">
                 {(posts.length==0) && <ThreeDotsWave/>}
                 {posts.map((post, index) => {
