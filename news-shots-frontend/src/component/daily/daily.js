@@ -115,7 +115,6 @@ const Daily = () => {
     }
 
     return (
-
         <div>
             <NavbarTop/>
             <div className="mt-5 daily-card-feed">
@@ -132,7 +131,6 @@ const Daily = () => {
 
             <div className="text-center h4"> {`Showing ${(page-1)*perPageItems+1}-${Math.min(totalPosts, page*perPageItems)} Posts`} </div>
             <div className="footer-container">
-
                 <div className="h4 pb-5 pull-left ml-5">
                     {page!=1 &&
                         <Link to={`/daily/page/${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}} className="link pull-right mr-2"><img src={previousImg} alt="Previous" style={{width:"30px"}}/></Link>
@@ -156,7 +154,6 @@ const Daily = () => {
                     }
                 </div>
             </div>
-
         </div>
     )
 
