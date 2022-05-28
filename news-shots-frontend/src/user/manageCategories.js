@@ -116,37 +116,35 @@ const ManageCategories = () => {
                 </div>
 
                 <div className="col-5 px-0">
-                    <div className="container my-4">
-                        <div className="text-center h3"> {`Total ${categories.length} Categories`} </div>
-                        <div className="row mt-4 text-center h4">
-                            <div className="col-4 px-0">Category Name</div>
-                            <div className="col-4 px-0">Update</div>
-                            <div className="col-4 px-0">Delete</div>
-                        </div>
+                    <div className="text-center h3"> {`Total ${categories.length} Categories`} </div>
+
+                    <div className="px-5">
+                        <table className="table table-hover">
+                            <thead>
+                                <th><h3 className="font-weight-bold">Category Name</h3></th>
+                                <th><h3 className="font-weight-bold">Update</h3></th>
+                                <th><h3 className="font-weight-bold">Delete</h3></th>
+                            </thead>
+                            <tbody>
+                                {categories.map((category, index) => {
+                                    return (
+                                        <tr key={index} className="mb-2">
+                                            <td><h4 className="lead">{category.name}</h4></td>
+                                            <td>
+                                                <Link className="btn btn-success" to={`/update/category/${category.name}`}>
+                                                    <span className="">Update</span>
+                                                </Link>
+                                            </td>
+                                            <td><button onClick={() => {deleteThisCategory(category.name)}} className="btn btn-danger">Delete</button></td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
                     </div>
 
-                    {categories.map((category, index) => {
-                        return (
-                            <div key={index} className="row text-center mb-2 ">
-                                <div className="col-4 px-0">
-                                    <h4 className="lead">{category.name}</h4>
-                                </div>
-                                <div className="col-4 px-0">
-                                    <Link className="btn btn-success" to={`/update/category/${category.name}`}>
-                                        <span className="">Update</span>
-                                    </Link>
-                                </div>
-                                <div className="col-4 text-center pr-5 px-0">
-                                    <button onClick={() => {deleteThisCategory(category.name)}} className="btn btn-danger">Delete</button>
-                                </div>
-                            </div>
-                        )
-                    })}
                 </div>
             </div>
-
-
-
         </div>
 
 
@@ -154,3 +152,33 @@ const ManageCategories = () => {
 }
 
 export default ManageCategories;
+
+/*
+
+<div className="container my-4">
+    <div className="row mt-4 text-center h4">
+        <div className="col-4 px-0">Category Name</div>
+        <div className="col-4 px-0">Update</div>
+        <div className="col-4 px-0">Delete</div>
+    </div>
+</div>
+
+{categories.map((category, index) => {
+    return (
+        <div key={index} className="row text-center mb-2 ">
+            <div className="col-4 px-0">
+                <h4 className="lead">{category.name}</h4>
+            </div>
+            <div className="col-4 px-0">
+                <Link className="btn btn-success" to={`/update/category/${category.name}`}>
+                    <span className="">Update</span>
+                </Link>
+            </div>
+            <div className="col-4 text-center pr-5 px-0">
+                <button onClick={() => {deleteThisCategory(category.name)}} className="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    )
+})}
+
+*/

@@ -87,67 +87,60 @@ const ManagePosts = () => {
         });
     };
 
-    const goBack = () => (
-        <div className="mt-5 ml-3">
-            <Link className="btn btn-sm btn-success mb-3" to={`/dashboard/${user._id}`}>Home</Link>
-        </div>
-    )
-
     return (
-        <div>
-            {goBack()}
+        <div className="mt-5">
 
-            <div className="text-center h2"> {`Showing ${(page-1)*perPageItems+1}-${page*perPageItems} of ${totalPosts} Posts`} </div>
-            <div className="row ml-1 pt-4">
-                <div className="col-2"><h3>Date</h3></div>
-                <div className="col-2"><h3>Image</h3></div>
-                <div className="col-2"><h3>Title</h3></div>
-                <div className="col-2"><h3>Category</h3></div>
-                <div className="col-2"><h3>Author</h3></div>
-                <div className="col-1"><h3>Update</h3></div>
-                <div className="col-1"><h3>Delete</h3></div>
+            <Link className="btn btn-sm btn-success pull-left" style={{fontSize:"20px", marginLeft:"4rem"}} to={`/dashboard/${user._id}`}>Home</Link>
+
+            <div className="text-center font-weight-bold h1 mb-3" style={{marginRight:"8rem"}}>
+                Manage Post
             </div>
 
-            <br/>
 
-            <div className="col-12">
-                {loading && <ThreeDotsWave/>}
-                {posts.map((post, index) => {
-                    return (
-                        (
-                            <div key={index} className="row mb-2 ">
-                                <div className="col-1">
-                                    <h4 className="lead">{(new Date(post.createdAt)).toString().slice(3, 16)}</h4>
-                                </div>
+            <div className="text-center h2 mb-3"> {`Showing ${(page-1)*perPageItems+1}-${page*perPageItems} of ${totalPosts} Posts`} </div>
 
-                                <div className="col-3">
-                                    <img className="daily-image" src={`${API}/daily/photo/${post.link}`} alt=""/>
-                                </div>
+            <div className="px-5">
+                <table className="table table-hover">
+                    <thead>
+                        <th style={{width:"12%"}}><h3 className="font-weight-bold">Date</h3></th>
+                        <th><h3 className="font-weight-bold">Image</h3></th>
+                        <th><h3 className="font-weight-bold">Title</h3></th>
+                        <th><h3 className="font-weight-bold">Category</h3></th>
+                        <th><h3 className="font-weight-bold">Author</h3></th>
+                        <th><h3 className="font-weight-bold">Update</h3></th>
+                        <th><h3 className="font-weight-bold">Delete</h3></th>
+                    </thead>
 
-                                <div className="col-2">
-                                    <Link to={`/daily/${post.link}`} target="_blank"><h4 className="lead">{post.title}</h4></Link>
-                                </div>
+                    <tbody>
+                        {loading && <ThreeDotsWave/>}
+                        {posts.map((post, index) => {
+                            return (
+                                (
+                                    <tr key={index} className="mb-2">
+                                        <td><h4 className="lead">{(new Date(post.createdAt)).toString().slice(3, 16)}</h4></td>
 
-                                <div className="col-2">
-                                    <h4 className="lead">{post.category.name}</h4>
-                                </div>
+                                        <td><img className="daily-image" src={`${API}/daily/photo/${post.link}`} alt=""/></td>
 
-                                <div className="col-2">
-                                    <h4 className="lead">{post.author.name}</h4>
-                                </div>
+                                        <td><Link to={`/daily/${post.link}`} target="_blank"><h4 className="lead">{post.title}</h4></Link></td>
 
-                                <div className="col-1">
-                                    <Link className="btn btn-success" to={`/update/post/${post.link}`}>
-                                        <span className="">Update</span>
-                                    </Link>
-                                </div>
-                                <div className="col-1 pr-5">
-                                    <button onClick={() => {deleteThisPost(post.link)}} className="btn btn-danger">Delete</button>
-                                </div>
-                            </div>
-                        )
-                    )
-                })}
+                                        <td><h4 className="lead">{post.category.name}</h4></td>
+
+                                        <td><h4 className="lead">{post.author.name}</h4></td>
+
+                                        <td>
+                                            <Link className="btn btn-success" to={`/update/post/${post.link}`}>
+                                                <span>Update</span>
+                                            </Link>
+                                        </td>
+                                        <td className="pr-5">
+                                            <button onClick={() => {deleteThisPost(post.link)}} className="btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                )
+                            )
+                        })}
+                    </tbody>
+                </table>
             </div>
             {page!=1 &&
                 <div className="h4 pb-2 pull-left ml-5 mt-5">
