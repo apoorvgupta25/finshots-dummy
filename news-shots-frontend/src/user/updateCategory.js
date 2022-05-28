@@ -6,9 +6,7 @@ import {updateCategory, getCategory} from './helper/categoryAPICalls';
 
 import dashboardImg from '../assets/dashboard.svg';
 
-const UpdateCategory = () => {
-
-    const {categoryName} = useParams();
+const UpdateCategory = ({categoryName="Business"}) => {
 
     const [name, setName] = useState("");
     const [error, setError] = useState(false);
@@ -68,29 +66,10 @@ const UpdateCategory = () => {
         })
     }
 
-    const dashboardButton = () => (
-        <Link
-            className="btn btn-sm btn-success pull-left"
-            style={{fontSize:"20px", marginLeft:"19rem"}}
-            to={`/dashboard/${user._id}`}>
-            <img
-                src={dashboardImg}
-                alt="Home"
-                style={{width:"25px", marginRight:"10px"}}/>
-            Dashboard
-        </Link>
-    )
 
     return (
-        <div className="mt-5">
-
-            {dashboardButton()}
-
-            <div className="text-center font-weight-bold h1 mb-5" style={{marginRight:"25rem"}}>
-                Update Category
-            </div>
-
-            <div className="container rounded bg-dark p-4" style={{width:"60%"}}>
+        <div>
+            <div className="container rounded bg-dark p-4" style={{width:"100%"}}>
                 <div className="bg-white rounded mx-1">
                     <div className="mx-3 py-2">
 
@@ -98,9 +77,9 @@ const UpdateCategory = () => {
                         {warningMessage()}
                         <form>
                             <div className="form-group py-2 mb-0">
-                                <p className="lead">Enter the Category Name</p>
+                                <p className="lead">Enter Category Name</p>
                                 <input type="text" className="form-control my-3" onChange={handleChange} value={name} autoFocus required placeholder="For Ex. Summer"/>
-                                <button className="btn btn-outline-info" onClick={onSubmit}>Update Category</button>
+                                <button className="btn btn-outline-info w-100" onClick={onSubmit}>Update Category</button>
                             </div>
                         </form>
                     </div>

@@ -16,7 +16,6 @@ import ManageCategories from './user/manageCategories';
 import CreatePost from './user/createPost';
 import ManagePosts from './user/managePosts';
 import UpdatePost from './user/updatePost';
-import UpdateCategory from './user/updateCategory';
 
 import NotFound from './NotFound.js';
 
@@ -37,7 +36,6 @@ export default function AllRoutes(){
                 <Route path="/dashboard/:userId" exact element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
 
                 <Route path="/manage/categories" exact element={<PrivateRoute><ManageCategories/></PrivateRoute>}/>
-                <Route path="/update/category/:categoryName" exact element={<PrivateRoute><UpdateCategory/></PrivateRoute>}/>
 
                 <Route path="/create/post" exact element={<PrivateRoute><CreatePost/></PrivateRoute>}/>
                 <Route path="/manage/posts" exact element={<PrivateRoute><ManagePosts/></PrivateRoute>}/>

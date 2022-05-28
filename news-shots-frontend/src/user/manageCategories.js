@@ -1,5 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
+import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
+    Modal,
+    ModalHeader,
+    ModalBody,
+} from 'reactstrap';
+
+
+import UpdateCategory from './updateCategory'
 
 import {isAuth} from '../auth/authAPICalls';
 import {createCategory, getAllCategories, deleteCategory} from './helper/categoryAPICalls';
@@ -15,6 +33,10 @@ const ManageCategories = () => {
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [reload, setReload] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [category, setCategory] = useState("");
+
+    const toggle = () => setIsOpen(!isOpen);
 
     const {user, token} = isAuth();
 
@@ -85,6 +107,26 @@ const ManageCategories = () => {
 
     }
 
+    //Modal
+    const [modal, setModal] = useState(false);
+
+    const toggleModal = () => {
+        setModal(!modal);
+    }
+
+    const closeBtn = <button className="close" onClick={toggleModal}>&times;</button>;
+
+    const showModal = () => {
+        return(
+            <Modal isOpen={modal}>
+                <ModalHeader toggle={toggleModal} close={closeBtn}>Update Category</ModalHeader>
+                    <ModalBody>
+                        <UpdateCategory categoryName={category}/>
+                    </ModalBody>
+            </Modal>
+        )
+    }
+
     const dashboardButton = () => (
         <Link
             className="btn btn-sm btn-success pull-left"
@@ -102,6 +144,7 @@ const ManageCategories = () => {
         <div className="mt-5">
 
             {dashboardButton()}
+            {showModal()}
 
             <div className="text-center font-weight-bold h1 mb-5" style={{marginRight:"15rem"}}>
                 Manage Category
@@ -144,9 +187,9 @@ const ManageCategories = () => {
                                         <tr key={index} className="mb-2">
                                             <td><h4 className="lead">{category.name}</h4></td>
                                             <td className="text-center">
-                                                <Link className="btn btn-success" to={`/update/category/${category.name}`}>
+                                                <div className="btn btn-success" onClick={() => {toggleModal(); setCategory(category.name)}}>
                                                     <img src={updateImg} style={{width:"25px"}} alt="Update"/>
-                                                </Link>
+                                                </div>
                                             </td>
                                             <td className="text-center">
                                                 <button onClick={() => {deleteThisCategory(category.name)}} className="btn btn-danger p-0"><img src={deleteImg} style={{width:"40px"}} alt="Delete"/></button>
