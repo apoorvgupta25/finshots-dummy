@@ -9,12 +9,13 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 
+import dashboardImg from '../assets/dashboard.svg';
+
 const editorStateAsJSONString = {"entityMap":{},"blocks":[{"key":"637gr","text":"","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
 
 const UpdatePost = () => {
 
     const {postName} = useParams();
-
 
     const [values, setValues] = useState({
         title: '',
@@ -32,7 +33,6 @@ const UpdatePost = () => {
     const [editorState, setEditorState]  = useState(EditorState.createWithContent(contentState));
     const [con, setCon] = useState('');
     const [redirect, setRedirect] = useState(false);
-
 
     const {title, description, content, categories, category, author, createdPost, error, formData } = values;
     const {user, token} = isAuth();
@@ -135,14 +135,6 @@ const UpdatePost = () => {
         return <Navigate to={`/manage/posts`}/>
     }
 
-    const goBack = () => (
-        <div className="mt-5">
-            <Link className="btn btn-sm btn-success mb-3" to={`/dashboard/${user._id}`}>Home</Link>
-        </div>
-    )
-
-
-
     const onEditorStateChange = (editorState) => {
         setEditorState(editorState);
         setContentState(editorState.getCurrentContent());
@@ -169,20 +161,36 @@ const UpdatePost = () => {
          )
     }
 
-    return (
-        <div className="container bg-info p-4">
-            <h1 className="text-white text-center">Update Post</h1>
-            {goBack()}
+    const dashboardButton = () => (
+        <Link
+            className="btn btn-sm btn-success pull-left"
+            style={{fontSize:"20px", marginLeft:"0rem"}}
+            to={`/manage/posts`}>
+            <img
+                src={dashboardImg}
+                alt="Home"
+                style={{width:"25px", marginRight:"10px"}}/>
+            Dashboard
+        </Link>
+    )
 
-            <div className="row bg-dark text-white rounded">
-                <div className="col-md-8 offset-md-2 ">
+    return (
+        <div className="container p-4 mt-3">
+
+            {dashboardButton()}
+            <div className="text-center font-weight-bold h1 mb-3" style={{marginRight:"10rem"}}>
+                Update Post
+            </div>
+
+            <div className="bg-dark text-white rounded p-2 pt-3">
+                <div className="mx-5">
                     {successMessage()}
                     {errorMessage()}
 
                     <form>
                         <span>Update Photo</span>
                         <div className="form-group">
-                            <label className="btn btn-block btn-success">
+                            <label className="btn btn-block btn-warning">
                                 <input type="file" name="photo" accept="image" placeholder="choose a file"onChange={handleChange("photo")}/>
                             </label>
                         </div>
@@ -207,7 +215,7 @@ const UpdatePost = () => {
                             </select>
                         </div>
 
-                        <button className="btn btn-outline-success mb-3" type="submit" onClick={onSubmit}>Update Post</button>
+                        <button className="btn btn-outline-success mb-3 w-100" type="submit" onClick={onSubmit}>Update Post</button>
                     </form>
                 </div>
             </div>
