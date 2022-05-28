@@ -106,7 +106,6 @@ const CreatePost = () => {
 
     const goBack = () => (
         <div className="">
-            <Link className="btn btn-sm btn-success mb-3" to={`/dashboard/${user._id}`}>Home</Link>
         </div>
     )
 
@@ -132,21 +131,31 @@ const CreatePost = () => {
          )
     }
 
-    return (
-        <div className="container bg-info p-4">
-            <CircleModal saving={saving} />
-            <h1 className="text-white text-center">Add new Post</h1>
-            {goBack()}
 
-            <div className="row bg-dark text-white rounded">
-                <div className="col-md-8 offset-md-2 ">
+/*
+<Link className="btn btn-sm btn-success pull-left" style={{fontSize:"20px", marginLeft:"4rem"}} to={`/dashboard/${user._id}`}>Home</Link>
+
+<div className="text-center font-weight-bold h1 mb-3" style={{marginRight:"8rem"}}>
+    Manage Post
+</div>
+
+*/
+    return (
+        <div className="container p-4 mt-3">
+            <CircleModal saving={saving} />
+            <Link className="btn btn-sm btn-success pull-left" style={{fontSize:"20px"}} to={`/dashboard/${user._id}`}>Home</Link>
+
+            <div className="text-center font-weight-bold h1 mb-3">Add new Post</div>
+
+            <div className="bg-dark text-white rounded p-2 pt-3">
+                <div className="mx-5">
                     {successMessage()}
                     {errorMessage()}
 
                     <form>
                         <span>Add Photo</span>
                         <div className="form-group">
-                            <label className="btn btn-block btn-success">
+                            <label className="btn btn-block btn-warning">
                                 <input type="file" name="photo" accept="image" placeholder="choose a file"onChange={handleChange("photo")}/>
                             </label>
                         </div>
@@ -171,7 +180,7 @@ const CreatePost = () => {
                             </select>
                         </div>
 
-                        <button className="btn btn-outline-success mb-3" type="submit" onClick={onSubmit}>Add Post</button>
+                        <button className="btn btn-outline-success mb-3 w-100" type="submit" onClick={onSubmit}>Add Post</button>
                     </form>
                 </div>
             </div>
