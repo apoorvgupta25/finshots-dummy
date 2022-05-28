@@ -12,7 +12,6 @@ import Signin from './auth/signin';
 import PrivateRoute from './auth/privateRoute';
 
 import Dashboard from './user/dashboard';
-import CreateCategory from './user/createCategory';
 import ManageCategories from './user/manageCategories';
 import CreatePost from './user/createPost';
 import ManagePosts from './user/managePosts';
@@ -37,7 +36,6 @@ export default function AllRoutes(){
 
                 <Route path="/dashboard/:userId" exact element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
 
-                <Route path="/create/category" exact element={<PrivateRoute><CreateCategory/></PrivateRoute>}/>
                 <Route path="/manage/categories" exact element={<PrivateRoute><ManageCategories/></PrivateRoute>}/>
                 <Route path="/update/category/:categoryName" exact element={<PrivateRoute><UpdateCategory/></PrivateRoute>}/>
 

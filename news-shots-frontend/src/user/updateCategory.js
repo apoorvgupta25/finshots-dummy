@@ -67,28 +67,32 @@ const UpdateCategory = () => {
     }
 
     const goBack = () => (
-        <div className="mt-5">
+        <div className="mt-2">
             <Link className="btn btn-sm btn-success mb-3" to={`/dashboard/${user._id}`}>Home</Link>
         </div>
     )
 
     return (
-        <div className="container bg-info p-4">
-            <div className="row bg-white rounded">
-                <div className="col-md-2 ">
-                    {goBack()}
-                </div>
+        <div className="mt-5">
+            <div className="text-center font-weight-bold h1 mb-5">
+                Update Category
+            </div>
 
-                <div className="col-md-10">
-                    {successMessage()}
-                    {warningMessage()}
-                    <form>
-                        <div className="form-group py-2">
-                            <p className="lead">Enter the Category Name</p>
-                            <input type="text" className="form-control my-3" onChange={handleChange} value={name} autoFocus required placeholder="For Ex. Summer"/>
-                            <button className="btn btn-outline-info" onClick={onSubmit}>Update Category</button>
-                        </div>
-                    </form>
+            <div className="container rounded bg-dark p-4" style={{width:"60%"}}>
+                <div className="bg-white rounded mx-1">
+                    <div className="mx-3 py-2">
+                        {goBack()}
+
+                        {successMessage()}
+                        {warningMessage()}
+                        <form>
+                            <div className="form-group py-2 mb-0">
+                                <p className="lead">Enter the Category Name</p>
+                                <input type="text" className="form-control my-3" onChange={handleChange} value={name} autoFocus required placeholder="For Ex. Summer"/>
+                                <button className="btn btn-outline-info" onClick={onSubmit}>Update Category</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

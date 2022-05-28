@@ -20,9 +20,6 @@ const Dashboard = () => {
                 <h4 className="card-header bg-dark"><Link to="/" style={{ textDecoration:'none', color: 'white'}}>News-Shots</Link></h4>
                 <ul className="list-group">
                     <li className="list-group-item">
-                        <Link to="/create/category" className="text-success" style={{ textDecoration:'none'}}>Create Category</Link>
-                    </li>
-                    <li className="list-group-item">
                         <Link to="/manage/categories" className=" text-success" style={{ textDecoration:'none'}}>Manage Category</Link>
                     </li>
                     <li className="list-group-item">
