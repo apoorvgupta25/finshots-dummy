@@ -4,6 +4,10 @@ import {Link} from 'react-router-dom';
 import {isAuth} from '../auth/authAPICalls';
 import {createCategory, getAllCategories, deleteCategory} from './helper/categoryAPICalls';
 
+import deleteImg from '../assets/delete.svg';
+import updateImg from '../assets/update.svg';
+import dashboardImg from '../assets/dashboard.svg';
+
 const ManageCategories = () => {
 
     const [categories, setCategories] = useState([])
@@ -81,15 +85,25 @@ const ManageCategories = () => {
 
     }
 
-    const goBack = () => (
-        <div className="mt-2">
-            <Link className="btn btn-sm btn-success mb-3" to={`/dashboard/${user._id}`}>Home</Link>
-        </div>
+    const dashboardButton = () => (
+        <Link
+            className="btn btn-sm btn-success pull-left"
+            style={{fontSize:"20px", marginLeft:"5rem"}}
+            to={`/dashboard/${user._id}`}>
+            <img
+                src={dashboardImg}
+                alt="Home"
+                style={{width:"25px", marginRight:"10px"}}/>
+            Dashboard
+        </Link>
     )
 
     return (
         <div className="mt-5">
-            <div className="text-center font-weight-bold h1 mb-5">
+
+            {dashboardButton()}
+
+            <div className="text-center font-weight-bold h1 mb-5" style={{marginRight:"15rem"}}>
                 Manage Category
             </div>
 
@@ -99,7 +113,6 @@ const ManageCategories = () => {
                     <div className="container bg-dark rounded p-4" style={{width:"80%"}}>
                         <div className="bg-white rounded mx-1">
                             <div className="mx-3 py-2">
-                                {goBack()}
 
                                 {successMessage()}
                                 {warningMessage()}
@@ -130,12 +143,14 @@ const ManageCategories = () => {
                                     return (
                                         <tr key={index} className="mb-2">
                                             <td><h4 className="lead">{category.name}</h4></td>
-                                            <td>
+                                            <td className="text-center">
                                                 <Link className="btn btn-success" to={`/update/category/${category.name}`}>
-                                                    <span className="">Update</span>
+                                                    <img src={updateImg} style={{width:"25px"}} alt="Update"/>
                                                 </Link>
                                             </td>
-                                            <td><button onClick={() => {deleteThisCategory(category.name)}} className="btn btn-danger">Delete</button></td>
+                                            <td className="text-center">
+                                                <button onClick={() => {deleteThisCategory(category.name)}} className="btn btn-danger p-0"><img src={deleteImg} style={{width:"40px"}} alt="Delete"/></button>
+                                            </td>
                                         </tr>
                                     )
                                 })}
@@ -152,33 +167,3 @@ const ManageCategories = () => {
 }
 
 export default ManageCategories;
-
-/*
-
-<div className="container my-4">
-    <div className="row mt-4 text-center h4">
-        <div className="col-4 px-0">Category Name</div>
-        <div className="col-4 px-0">Update</div>
-        <div className="col-4 px-0">Delete</div>
-    </div>
-</div>
-
-{categories.map((category, index) => {
-    return (
-        <div key={index} className="row text-center mb-2 ">
-            <div className="col-4 px-0">
-                <h4 className="lead">{category.name}</h4>
-            </div>
-            <div className="col-4 px-0">
-                <Link className="btn btn-success" to={`/update/category/${category.name}`}>
-                    <span className="">Update</span>
-                </Link>
-            </div>
-            <div className="col-4 text-center pr-5 px-0">
-                <button onClick={() => {deleteThisCategory(category.name)}} className="btn btn-danger">Delete</button>
-            </div>
-        </div>
-    )
-})}
-
-*/

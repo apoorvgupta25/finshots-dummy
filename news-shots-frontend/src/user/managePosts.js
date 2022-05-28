@@ -10,6 +10,9 @@ import ThreeDotsWave from '../component/animation/ThreeDotsWave';
 
 import nextImg from '../assets/next.svg';
 import previousImg from '../assets/previous.svg';
+import deleteImg from '../assets/delete.svg';
+import updateImg from '../assets/update.svg';
+import dashboardImg from '../assets/dashboard.svg';
 
 const ManagePosts = () => {
 
@@ -87,15 +90,27 @@ const ManagePosts = () => {
         });
     };
 
+    const dashboardButton = () => (
+        <Link
+            className="btn btn-sm btn-success pull-left"
+            style={{fontSize:"20px", marginLeft:"4rem"}}
+            to={`/dashboard/${user._id}`}>
+            <img
+                src={dashboardImg}
+                alt="Home"
+                style={{width:"25px", marginRight:"10px"}}/>
+            Dashboard
+        </Link>
+    )
+
     return (
         <div className="mt-5">
 
-            <Link className="btn btn-sm btn-success pull-left" style={{fontSize:"20px", marginLeft:"4rem"}} to={`/dashboard/${user._id}`}>Home</Link>
+            {dashboardButton()}
 
-            <div className="text-center font-weight-bold h1 mb-3" style={{marginRight:"8rem"}}>
+            <div className="text-center font-weight-bold h1 mb-3" style={{marginRight:"13rem"}}>
                 Manage Post
             </div>
-
 
             <div className="text-center h2 mb-3"> {`Showing ${(page-1)*perPageItems+1}-${page*perPageItems} of ${totalPosts} Posts`} </div>
 
@@ -127,13 +142,13 @@ const ManagePosts = () => {
 
                                         <td><h4 className="lead">{post.author.name}</h4></td>
 
-                                        <td>
+                                        <td className="text-center">
                                             <Link className="btn btn-success" to={`/update/post/${post.link}`}>
-                                                <span>Update</span>
+                                                <img src={updateImg} style={{width:"35px"}} alt="Update"/>
                                             </Link>
                                         </td>
-                                        <td className="pr-5">
-                                            <button onClick={() => {deleteThisPost(post.link)}} className="btn btn-danger">Delete</button>
+                                        <td className="text-center">
+                                            <button onClick={() => {deleteThisPost(post.link)}} className="btn btn-danger p-0" ><img src={deleteImg} style={{width:"50px"}} alt="Delete"/></button>
                                         </td>
                                     </tr>
                                 )

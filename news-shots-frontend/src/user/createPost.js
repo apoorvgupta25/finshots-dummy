@@ -10,6 +10,8 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw } from 'draft-js';
 
+import dashboardImg from '../assets/dashboard.svg';
+
 const CreatePost = () => {
 
     const [values, setValues] = useState({
@@ -132,20 +134,27 @@ const CreatePost = () => {
     }
 
 
-/*
-<Link className="btn btn-sm btn-success pull-left" style={{fontSize:"20px", marginLeft:"4rem"}} to={`/dashboard/${user._id}`}>Home</Link>
+    const dashboardButton = () => (
+        <Link
+            className="btn btn-sm btn-success pull-left"
+            style={{fontSize:"20px", marginLeft:"0rem"}}
+            to={`/dashboard/${user._id}`}>
+            <img
+                src={dashboardImg}
+                alt="Home"
+                style={{width:"25px", marginRight:"10px"}}/>
+            Dashboard
+        </Link>
+    )
 
-<div className="text-center font-weight-bold h1 mb-3" style={{marginRight:"8rem"}}>
-    Manage Post
-</div>
-
-*/
     return (
         <div className="container p-4 mt-3">
             <CircleModal saving={saving} />
-            <Link className="btn btn-sm btn-success pull-left" style={{fontSize:"20px"}} to={`/dashboard/${user._id}`}>Home</Link>
 
-            <div className="text-center font-weight-bold h1 mb-3">Add new Post</div>
+            {dashboardButton()}
+            <div className="text-center font-weight-bold h1 mb-3" style={{marginRight:"10rem"}}>
+                Add new Post
+            </div>
 
             <div className="bg-dark text-white rounded p-2 pt-3">
                 <div className="mx-5">

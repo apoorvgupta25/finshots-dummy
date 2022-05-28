@@ -4,6 +4,8 @@ import {Link, useParams} from 'react-router-dom';
 import {isAuth} from '../auth/authAPICalls';
 import {updateCategory, getCategory} from './helper/categoryAPICalls';
 
+import dashboardImg from '../assets/dashboard.svg';
+
 const UpdateCategory = () => {
 
     const {categoryName} = useParams();
@@ -66,22 +68,31 @@ const UpdateCategory = () => {
         })
     }
 
-    const goBack = () => (
-        <div className="mt-2">
-            <Link className="btn btn-sm btn-success mb-3" to={`/dashboard/${user._id}`}>Home</Link>
-        </div>
+    const dashboardButton = () => (
+        <Link
+            className="btn btn-sm btn-success pull-left"
+            style={{fontSize:"20px", marginLeft:"19rem"}}
+            to={`/dashboard/${user._id}`}>
+            <img
+                src={dashboardImg}
+                alt="Home"
+                style={{width:"25px", marginRight:"10px"}}/>
+            Dashboard
+        </Link>
     )
 
     return (
         <div className="mt-5">
-            <div className="text-center font-weight-bold h1 mb-5">
+
+            {dashboardButton()}
+
+            <div className="text-center font-weight-bold h1 mb-5" style={{marginRight:"25rem"}}>
                 Update Category
             </div>
 
             <div className="container rounded bg-dark p-4" style={{width:"60%"}}>
                 <div className="bg-white rounded mx-1">
                     <div className="mx-3 py-2">
-                        {goBack()}
 
                         {successMessage()}
                         {warningMessage()}

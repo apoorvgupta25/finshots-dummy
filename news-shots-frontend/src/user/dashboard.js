@@ -35,8 +35,8 @@ const Dashboard = () => {
 
     const adminRightSide = () => {
         return (
-            <div className="card mb-4">
-                <h4 className="card-header">Info</h4>
+            <div className="mb-4">
+            <h4 className="card-header bg-light font-weight-bold">Account Info</h4>
                 <ul className="list-group">
                     <li className="list-group-item">
                         <div className="badge badge-success mr-2">Name</div> {name}
@@ -44,17 +44,15 @@ const Dashboard = () => {
                     <li className="list-group-item">
                         <div className="badge badge-success mr-2">Email</div> {email}
                     </li>
-                    <li className="list-group-item">
-                        <Link to="/signin" onClick={signoutUser} className="btn btn-primary">Sign Out</Link>
-                    </li>
                 </ul>
+                <Link to="/signin" onClick={signoutUser} className="btn btn-primary pull-right mt-3">Sign Out</Link>
             </div>
         );
     };
 
     return (
         <div className="">
-            <h1 className="text-center mt-5 mb-5">Dashboard</h1>
+            <h1 className="text-center mt-5 mb-5 font-weight-bold">Dashboard</h1>
             <div className="container bg-warning p-3">
                 <div className="row">
                     <div className="col-sm-3">{adminLeftSide()}</div>
