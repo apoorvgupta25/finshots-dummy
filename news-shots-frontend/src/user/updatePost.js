@@ -4,6 +4,8 @@ import {Link, Navigate, useParams} from 'react-router-dom';
 import {updatePost, getPost} from './helper/postAPICalls';
 import {isAuth} from '../auth/authAPICalls'
 import {getAllCategories} from './helper/categoryAPICalls';
+import CircleModal from '../component/animation/CircleModal';
+import ThreeDotsWave from '../component/animation/ThreeDotsWave';
 
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -27,6 +29,8 @@ const UpdatePost = () => {
         author: '',
         createdPost: '',
         error: '',
+        saving: false,
+        loading: true,
         formData: ''
     });
     const [contentState, setContentState] = useState(convertFromRaw(editorStateAsJSONString));
@@ -34,7 +38,7 @@ const UpdatePost = () => {
     const [con, setCon] = useState('');
     const [redirect, setRedirect] = useState(false);
 
-    const {title, description, content, categories, category, author, createdPost, error, formData } = values;
+    const {title, description, content, categories, category, author, createdPost, error, saving, loading, formData } = values;
     const {user, token} = isAuth();
 
     const handleChange = name => event => {
@@ -77,6 +81,7 @@ const UpdatePost = () => {
                     description: data.description,
                     content: data.content,
                     category: data.category._id,
+                    loading: false,
                     formData: new FormData(),
                 });
                 preloadCategories();
@@ -105,11 +110,11 @@ const UpdatePost = () => {
 
     const onSubmit = event => {
         event.preventDefault();
-        setValues({...values, error:"" ,loading: true});
+        setValues({...values, error:"", saving: true});
         updatePost(postName, user._id, token, formData)
             .then(data => {
                 if(data.error){
-                    setValues({...values, error: data.error})
+                    setValues({...values, error: data.error, saving: false})
                 }
                 else{
                     setValues({...values,
@@ -118,6 +123,7 @@ const UpdatePost = () => {
                         content: "",
                         photo: "",
                         author: "",
+                        saving: false,
                         category: "",
                         createdPost: data.title
                     })
@@ -176,6 +182,9 @@ const UpdatePost = () => {
 
     return (
         <div className="container p-4 mt-3">
+            <CircleModal saving={loading} />
+
+            <CircleModal saving={saving} />
 
             {dashboardButton()}
             <div className="text-center font-weight-bold h1 mb-3" style={{marginRight:"10rem"}}>
