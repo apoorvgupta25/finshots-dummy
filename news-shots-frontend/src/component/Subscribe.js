@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import {useState} from 'react';
 import { Alert } from 'reactstrap';
 
 import {confirmSubscriber} from './home/homeAPICalls';
@@ -63,7 +63,7 @@ const Subscribe = ({isModal = false}) => {
         if (!(
                 lastAtPos < lastDotPos &&
                 lastAtPos > 0 &&
-                email.indexOf("@@") == -1 &&
+                email.indexOf("@@") === -1 &&
                 lastDotPos > 2 &&
                 email.length - lastDotPos > 2
             )

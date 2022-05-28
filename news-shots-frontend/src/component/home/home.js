@@ -1,15 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 
 import {API} from '../../backend';
-
-import './home.css';
+import { getLast3Posts } from './homeAPICalls';
 
 import NavbarTop from '../Navbar';
 import Subscribe from '../Subscribe';
 import ThreeDotsWave from '../animation/ThreeDotsWave';
 
-import { getLast3Posts } from './homeAPICalls';
+import './home.css';
 
 const HomeCard= ({ post }) => {
 
@@ -65,7 +64,7 @@ const Home = () => {
                     <div className="col-sm-8">
                         <h1 className="text-center">Recent Posts</h1>
                         <div className="pt-3 home-card-feed">
-                            {posts.length==0 && <ThreeDotsWave/>}
+                            {posts.length===0 && <ThreeDotsWave/>}
                             {posts.map((post, index) => {
                                 return (
                                     <div key={index}>

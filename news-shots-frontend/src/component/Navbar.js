@@ -1,4 +1,5 @@
-import {React, useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import {
     Collapse,
     Navbar,
@@ -14,9 +15,9 @@ import {
     ModalHeader,
     ModalBody,
 } from 'reactstrap';
-import {Link} from 'react-router-dom';
 
 import {getAllUniqueCategories} from '../user/helper/categoryAPICalls';
+
 import Subscribe from './Subscribe'
 
 import './style.css';

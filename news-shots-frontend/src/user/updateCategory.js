@@ -1,10 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {useState, useEffect} from 'react';
 
 import {isAuth} from '../auth/authAPICalls';
 import {updateCategory, getCategory} from './helper/categoryAPICalls';
-
-import dashboardImg from '../assets/dashboard.svg';
 
 const UpdateCategory = ({categoryName="Business"}) => {
 
@@ -47,6 +44,7 @@ const UpdateCategory = ({categoryName="Business"}) => {
 
     useEffect(() => {
         preload(categoryName);
+    // eslint-disable-next-line
     }, [])
 
     const onSubmit = event => {

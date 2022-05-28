@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {Link, Navigate} from 'react-router-dom';
+import { Editor } from "react-draft-wysiwyg";
+import { EditorState, convertToRaw } from 'draft-js';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import {createPost} from './helper/postAPICalls';
 import {getAllCategories} from './helper/categoryAPICalls';
 import {isAuth} from '../auth/authAPICalls'
-import CircleModal from '../component/animation/CircleModal';
 
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { EditorState, convertToRaw } from 'draft-js';
+import CircleModal from '../component/animation/CircleModal';
 
 import dashboardImg from '../assets/dashboard.svg';
 
@@ -32,7 +32,7 @@ const CreatePost = () => {
     // const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [redirect, setRedirect] = useState(false);
 
-    const {title, description, content, categories, category, author, createdPost, postLink, saving, error, formData } = values;
+    const {title, description, categories, createdPost, postLink, saving, error, formData } = values;
     const {user, token} = isAuth();
 
     const preload = () => {
@@ -50,6 +50,7 @@ const CreatePost = () => {
 
     useEffect(() => {
         preload();
+        // eslint-disable-next-line
     },[])
 
     const handleChange = name => event => {
@@ -105,11 +106,6 @@ const CreatePost = () => {
     if(redirect){
         return <Navigate to={`../daily/${postLink}`}/>
     }
-
-    const goBack = () => (
-        <div className="">
-        </div>
-    )
 
     const onEditorStateChange = editorState => {
         // setEditorState(convertToRaw(editorState.getCurrentContent()))

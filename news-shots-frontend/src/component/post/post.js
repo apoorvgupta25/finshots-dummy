@@ -1,16 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
+import draftToHtml from 'draftjs-to-html';
 
 import {API} from '../../backend';
-
-import styles from './post.module.css';
-
 import {getPost} from './postAPICalls';
-import draftToHtml from 'draftjs-to-html';
 
 import NavbarTop from '../Navbar';
 import NotFound from '../../NotFound.js';
 import BouncingBall from '../animation/BouncingBall';
+
+import styles from './post.module.css';
 
 const Post = () => {
 
@@ -36,6 +35,7 @@ const Post = () => {
 
     useEffect(() => {
         loadPost(postName);
+        // eslint-disable-next-line
     },[])
 
     // fetch gives two responses one is null

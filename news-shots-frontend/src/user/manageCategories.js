@@ -1,26 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
     Modal,
     ModalHeader,
     ModalBody,
 } from 'reactstrap';
 
-
-import UpdateCategory from './updateCategory'
-
 import {isAuth} from '../auth/authAPICalls';
 import {createCategory, getAllCategories, deleteCategory} from './helper/categoryAPICalls';
+
+import UpdateCategory from './updateCategory'
 
 import deleteImg from '../assets/delete.svg';
 import updateImg from '../assets/update.svg';
@@ -33,10 +22,7 @@ const ManageCategories = () => {
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [reload, setReload] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
     const [category, setCategory] = useState("");
-
-    const toggle = () => setIsOpen(!isOpen);
 
     const {user, token} = isAuth();
 
@@ -55,6 +41,7 @@ const ManageCategories = () => {
 
     useEffect(() => {
         preload();
+        // eslint-disable-next-line
     }, [!reload]);
 
     const deleteThisCategory = categoryName => {

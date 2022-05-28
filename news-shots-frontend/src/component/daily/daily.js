@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
 
 import {API} from '../../backend';
+import {getDailyPosts, getPostsCount, getPostsByIndex, getPostsByCreated} from './dailyAPICalls';
 
 import NavbarTop from '../Navbar';
 import NotFound from '../../NotFound.js';
@@ -10,7 +11,6 @@ import ThreeDotsWave from '../animation/ThreeDotsWave';
 import nextImg from '../../assets/next.svg';
 import previousImg from '../../assets/previous.svg';
 
-import {getDailyPosts, getPostsCount, getPostsByIndex, getPostsByCreated} from './dailyAPICalls';
 import './daily.css';
 
 export const DailyCard = ({ post }) => {
@@ -56,32 +56,32 @@ const Daily = () => {
 
     var {page} = useParams();
 
-    if(page==undefined)
+    if(page===undefined)
         page=1;
 
     useEffect(() => {
-        const loadAllPosts = () => {
-            getDailyPosts()
-            .then(data => {
-                if (data.error) {
-                    console.log(data.error);
-                } else {
-                    setPosts(data);
-                }
-            })
-        };
+        // const loadAllPosts = () => {
+        //     getDailyPosts()
+        //     .then(data => {
+        //         if (data.error) {
+        //             console.log(data.error);
+        //         } else {
+        //             setPosts(data);
+        //         }
+        //     })
+        // };
 
-        const loadCreatePosts = (a, b) => {
-            getPostsByCreated(a, b)
-            .then(data => {
-                if (data.error) {
-                    console.log(data.error);
-                } else {
-                    setPosts(data);
-                }
-                setLoading(false);
-            })
-        };
+        // const loadCreatePosts = (a, b) => {
+        //     getPostsByCreated(a, b)
+        //     .then(data => {
+        //         if (data.error) {
+        //             console.log(data.error);
+        //         } else {
+        //             setPosts(data);
+        //         }
+        //         setLoading(false);
+        //     })
+        // };
 
         // loadAllPosts()
         // loadCreatePosts(new Date(), perPageItems)
@@ -102,12 +102,12 @@ const Daily = () => {
             })
         };
 
-
         totalPost()
         var n = parseInt(page)-1;
         var startIdx = n*perPageItems;
         loadIndexPosts(startIdx, perPageItems)
 
+        // eslint-disable-next-line
     },[loading])
 
     if((typeof numberOfPages == 'number') && (parseInt(page) > numberOfPages)){
@@ -132,7 +132,7 @@ const Daily = () => {
             <div className="text-center h4"> {`Showing ${(page-1)*perPageItems+1}-${Math.min(totalPosts, page*perPageItems)} Posts`} </div>
             <div className="footer-container">
                 <div className="h4 pb-5 pull-left ml-5">
-                    {page!=1 &&
+                    {page!==1 &&
                         <Link to={`/daily/page/${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}} className="link pull-right mr-2"><img src={previousImg} alt="Previous" style={{width:"30px"}}/></Link>
                     }
                 </div>

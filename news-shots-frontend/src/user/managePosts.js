@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
+
 import {API} from '../backend';
 import {isAuth} from '../auth/authAPICalls'
 import {getAllPosts, deletePost, getPostsCount, getPostsByIndex} from './helper/postAPICalls';
 
 import NotFound from '../NotFound.js';
-
 import ThreeDotsWave from '../component/animation/ThreeDotsWave';
 
 import nextImg from '../assets/next.svg';
@@ -26,7 +26,7 @@ const ManagePosts = () => {
 
     var {page} = useParams();
 
-    if(page==undefined)
+    if(page===undefined)
         page=1;
 
     const preload = () => {
@@ -70,6 +70,7 @@ const ManagePosts = () => {
         var startIdx = n*perPageItems;
         loadIndexPosts(startIdx, perPageItems)
 
+        // eslint-disable-next-line
     }, [!loading]);
 
     console.log(totalPosts);
@@ -157,12 +158,12 @@ const ManagePosts = () => {
                     </tbody>
                 </table>
             </div>
-            {page!=1 &&
-                <div className="h4 pb-2 pull-left ml-5 mt-5">
-                    {page &&
-                        <Link to={`/manage/posts/page/${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}}><img src={previousImg} alt="Previous" style={{width:"30px"}}/> </Link>}
-                </div>
-            }
+
+            <div className="h4 pb-2 pull-left ml-5 mt-5">
+                {page!==1 &&
+                    <Link to={`/manage/posts/page/${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}}><img src={previousImg} alt="Previous" style={{width:"30px"}}/> </Link>
+                }
+            </div>
 
             {(typeof numberOfPages == 'number') && (parseInt(page)+1 <= numberOfPages) &&
                 <div className="h4 pb-2 pull-right mr-5 mt-5">

@@ -1,15 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {Link, Navigate, useParams} from 'react-router-dom';
-
-import {updatePost, getPost} from './helper/postAPICalls';
-import {isAuth} from '../auth/authAPICalls'
-import {getAllCategories} from './helper/categoryAPICalls';
-import CircleModal from '../component/animation/CircleModal';
-import ThreeDotsWave from '../component/animation/ThreeDotsWave';
-
 import { Editor } from "react-draft-wysiwyg";
+import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
+
+import {isAuth} from '../auth/authAPICalls'
+import {updatePost, getPost} from './helper/postAPICalls';
+import {getAllCategories} from './helper/categoryAPICalls';
+
+import CircleModal from '../component/animation/CircleModal';
 
 import dashboardImg from '../assets/dashboard.svg';
 
@@ -38,7 +37,7 @@ const UpdatePost = () => {
     const [con, setCon] = useState('');
     const [redirect, setRedirect] = useState(false);
 
-    const {title, description, content, categories, category, author, createdPost, error, saving, loading, formData } = values;
+    const {title, description, categories, createdPost, error, saving, loading, formData } = values;
     const {user, token} = isAuth();
 
     const handleChange = name => event => {
@@ -105,6 +104,7 @@ const UpdatePost = () => {
 
     useEffect(() => {
         preload(postName);
+        // eslint-disable-next-line
     }, [])
 
 

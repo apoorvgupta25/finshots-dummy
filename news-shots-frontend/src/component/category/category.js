@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
 
+import {getCategoryPosts, getCategoryPostsCount, getCategoryPostsByIndex} from './categoryAPICalls';
+
 import NavbarTop from '../Navbar';
 import NotFound from '../../NotFound.js';
 import {DailyCard} from '../daily/daily';
@@ -8,8 +10,6 @@ import ThreeDotsWave from '../animation/ThreeDotsWave';
 
 import nextImg from '../../assets/next.svg';
 import previousImg from '../../assets/previous.svg';
-
-import {getCategoryPosts, getCategoryPostsCount, getCategoryPostsByIndex} from './categoryAPICalls';
 
 const Category = () => {
 
@@ -22,19 +22,15 @@ const Category = () => {
 
     var {page, categoryName} = useParams();
 
-    if(page==undefined)
+    if(page===undefined)
         page=1;
 
     useEffect(() => {
-        const loadAllPosts = categoryName => {
-            getCategoryPosts(categoryName)
+        getCategoryPosts(categoryName)
             .then(data => {
                 setReload(!reload);
                 setPosts(data);
-            })
-        };
-
-        // loadAllPosts(categoryName)
+        })
 
         const totalCategoryPost = categoryName => {
             getCategoryPostsCount(categoryName)
@@ -63,6 +59,7 @@ const Category = () => {
         var startIdx = n*perPageItems;
         loadIndexCategoryPosts(categoryName, startIdx, perPageItems)
 
+        // eslint-disable-next-line
     },[!reload, !loading])
 
 
@@ -74,9 +71,9 @@ const Category = () => {
         <div >
             <NavbarTop/>
             <div className="mt-4 text-center h1 font-weight-bold">  {categoryName} </div>
-            
+
             <div className="mt-5 daily-card-feed">
-                {(posts.length==0) && <ThreeDotsWave/>}
+                {(posts.length===0) && <ThreeDotsWave/>}
                 {posts.map((post, index) => {
                     return (
                         <div key={index}>
@@ -90,7 +87,7 @@ const Category = () => {
             <div className="footer-container">
 
                 <div className="h4 pb-5 pull-left ml-5">
-                    {page!=1 &&
+                    {page!==1 &&
                         <Link to={`/tag/${categoryName}/page/${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}}  className="link pull-right mr-2"><img src={previousImg} alt="Previous" style={{width:"30px"}}/></Link>
                     }
                 </div>
