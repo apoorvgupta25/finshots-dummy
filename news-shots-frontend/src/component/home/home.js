@@ -74,7 +74,7 @@ const Home = () => {
                             })}
                         </div>
                     </div>
-                    <div className="col-sm-4 text-center">
+                    <div className="col-sm-4 text-center mb-5">
                         <h1>Subscribe</h1>
                         <div className="">
                             <Subscribe/>
@@ -85,7 +85,7 @@ const Home = () => {
 
             <footer className="text-center">
                 Made with &nbsp;
-                <i class="fa fa-heart" style={{color:"#ED0202"}}></i>
+                <i class="fa fa-heart" style={{color:"red"}}></i>
                 &nbsp; by&nbsp;
                 <a href="https://apoorvgupta.gitlab.io/" target="_blank" rel="noreferrer">Apoorv</a>
             </footer>
