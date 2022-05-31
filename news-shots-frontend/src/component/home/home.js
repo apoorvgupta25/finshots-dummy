@@ -83,6 +83,12 @@ const Home = () => {
                 </div>
             </div>
 
+            <footer className="text-center">
+                Made with &nbsp;
+                <i class="fa fa-heart" style={{color:"#ED0202"}}></i>
+                &nbsp; by&nbsp;
+                <a href="https://apoorvgupta.gitlab.io/" target="_blank" rel="noreferrer">Apoorv</a>
+            </footer>
 
         </div>
 
