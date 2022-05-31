@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
 
 import {API} from '../../backend';
+// eslint-disable-next-line
 import {getDailyPosts, getPostsCount, getPostsByIndex, getPostsByCreated} from './dailyAPICalls';
 
 import NavbarTop from '../Navbar';

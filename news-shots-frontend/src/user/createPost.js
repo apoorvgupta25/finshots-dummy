@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {Link, Navigate} from 'react-router-dom';
 import { Editor } from "react-draft-wysiwyg";
+// eslint-disable-next-line
 import { EditorState, convertToRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 

@@ -6,6 +6,7 @@ import Daily from './component/daily/daily';
 import Post from './component/post/post';
 import Category from './component/category/category.js';
 
+// eslint-disable-next-line
 import Signup from './auth/signup';
 import Signin from './auth/signin';
 
