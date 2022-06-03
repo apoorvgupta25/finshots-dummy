@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
 
+// eslint-disable-next-line
 import {getCategoryPosts, getCategoryPostsCount, getCategoryPostsByIndex} from './categoryAPICalls';
 
 import NavbarTop from '../Navbar';
@@ -26,11 +27,12 @@ const Category = () => {
         page=1;
 
     useEffect(() => {
-        getCategoryPosts(categoryName)
-            .then(data => {
-                setReload(!reload);
-                setPosts(data);
-        })
+        // load all category posts
+        // getCategoryPosts(categoryName)
+        //     .then(data => {
+        //         setReload(!reload);
+        //         setPosts(data);
+        // })
 
         const totalCategoryPost = categoryName => {
             getCategoryPostsCount(categoryName)
@@ -59,8 +61,10 @@ const Category = () => {
         var startIdx = n*perPageItems;
         loadIndexCategoryPosts(categoryName, startIdx, perPageItems)
 
+        console.log(reload);
+
         // eslint-disable-next-line
-    },[!reload, !loading])
+    },[reload, !loading])
 
 
     if((typeof numberOfPages == 'number') && (parseInt(page) > numberOfPages)){
