@@ -39,11 +39,11 @@ export const DailyCard = ({ post }) => {
                 </Link>
                 <p className="two-line-limit">{description}</p>
             </div>
-            <footer className="daily-footer">
+            <div className="daily-footer">
                 <p> {date.toString().slice(3,16)} </p>
 
                 <p> {time} </p>
-            </footer>
+            </div>
         </div>
     );
 }
@@ -99,6 +99,7 @@ const Daily = () => {
             getPostsByIndex(a, b)
             .then(data => {
                 setPosts(data);
+                console.log(data);
                 setLoading(false);
             })
         };
