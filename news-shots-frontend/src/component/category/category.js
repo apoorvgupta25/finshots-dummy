@@ -91,7 +91,7 @@ const Category = () => {
             <div className="footer-container">
 
                 <div className="h4 pb-5 pull-left ml-5">
-                    {page!==1 &&
+                    {parseInt(page)!==1 &&
                         <Link to={`/tag/${categoryName}/page/${parseInt(page)-1}`} onClick={() => {setLoading(true); setPosts([])}}  className="link pull-right mr-2"><img src={previousImg} alt="Previous" style={{width:"30px"}}/></Link>
                     }
                 </div>
