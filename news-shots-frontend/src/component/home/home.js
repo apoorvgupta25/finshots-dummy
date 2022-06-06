@@ -74,11 +74,9 @@ const Home = () => {
                             })}
                         </div>
                     </div>
-                    <div className="col-sm-4 text-center mb-5">
+                    <div className="col-sm-4 text-center">
                         <h1>Subscribe</h1>
-                        <div className="">
-                            <Subscribe/>
-                        </div>
+                        <Subscribe/>
                     </div>
                 </div>
             </div>

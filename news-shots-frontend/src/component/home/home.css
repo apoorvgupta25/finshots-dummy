@@ -86,7 +86,7 @@
 footer {
     background-color: black;
     color: #eee;
-    padding: 0.75rem 0 1.5rem 0;
+    padding: 0.75rem 0 1rem 0;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -98,4 +98,11 @@ footer > a {
 
 footer > a:hover {
     text-decoration: none;
+}
+
+/* For Mobile */
+@media screen and (max-width: 540px) {
+    footer {
+        position: relative;
+    }
 }
