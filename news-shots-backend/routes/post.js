@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const {getPostByLink, createPost, getPost, photo, updatePost, deletePost,
-        getAllPosts, getAllUniqueCategories, getAllCategoryPosts,
+        getAllPosts, getAllUniqueCategories, getAllCategoryPosts, getPostRegex,
         getPostCount, getPostsByIndex, getPostsByCreated, getCategoryPostCount, getCategoryPostsByIndex} = require('../controllers/post')
 const {getUserById} = require('../controllers/user')
 const {getCategoryByName} = require('../controllers/category')
@@ -30,5 +30,8 @@ router.get('/unique/categories', getAllUniqueCategories);
 router.get('/daily/category/:categoryName', getAllCategoryPosts);
 router.get('/count/category/:categoryName', getCategoryPostCount);
 router.get('/index/category/:categoryName', getCategoryPostsByIndex);
+
+// Search
+router.get('/find/regex/post', getPostRegex);
 
 module.exports = router;

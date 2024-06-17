@@ -278,3 +278,23 @@ exports.getPostsByCreated = (req, res) => {
         res.json(posts)
     });
 }
+
+// Search
+exports.getPostRegex = (req, res) => {
+    let search = req.query.search ? req.query.search : "";
+
+    Post.find({ "title" : { $regex: `${search}`, $options: 'i'}})
+        .select("-photo")
+        .populate('category')
+        .populate("author", "_id name")
+        .sort([['createdAt', 'descending']])
+        .limit(5)
+        .exec((err, posts) => {
+        if(err){
+            return res.status(400).json({
+                error: "No Posts Found"
+            });
+        }
+        res.json(posts);
+    });
+}
