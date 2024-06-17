@@ -184,6 +184,7 @@ exports.getAllCategoryPosts = (req, res) => {
 
     Post.find({ "category": req.category._id} )
         .select("-photo")
+        .select("-content")
         .populate('category')
         .populate("author", "_id name")
         .sort([['createdAt', 'descending']])
@@ -286,6 +287,7 @@ exports.getPostRegex = (req, res) => {
 
     Post.find({ "title" : { $regex: `${search}`, $options: 'i'}})
         .select("-photo")
+        .select("-content")
         .populate('category')
         .populate("author", "_id name")
         .sort([['createdAt', 'descending']])
