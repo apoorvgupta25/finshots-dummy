@@ -151,6 +151,7 @@ exports.getAllPosts = (req, res) => {
 
     Post.find()
         .select("-photo")
+        .select("-content")
         .populate('category')
         .populate("author", "_id name")
         .sort([[sortBy, 'descending']])
