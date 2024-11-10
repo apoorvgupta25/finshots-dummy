@@ -20,7 +20,7 @@ import UpdatePost from './user/updatePost';
 
 import NotFound from './NotFound.js';
 
-// <Route path="/signup" exact element={Signup}/>
+// <Route path="/signup" exact element={<Signup/>}/>
 export default function AllRoutes(){
     return (
         <Router>
